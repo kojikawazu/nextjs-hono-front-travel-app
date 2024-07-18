@@ -1,13 +1,20 @@
-import React from 'react';
+
+interface ProjectTitleProps {
+    title: string;
+};
 
 /**
  * プロジェクトタイトル
  * @returns JSX
  */
-const ProjectTitle = () => {
+const ProjectTitle = ({
+    title,
+}: ProjectTitleProps) => {
     return (
         <div className="flex justify-center items-center">
-            <h1 className="text-3xl font-bold text-center p-4">プロジェクト</h1>
+            <h1 className="text-3xl font-bold text-center p-4">
+                {title}
+            </h1>
         </div>
     );
 }

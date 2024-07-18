@@ -9,7 +9,7 @@ const ProjectPage = () => {
     return (
       <div className="flex flex-col h-full bg-green-200">
         <div className="p-2 border border-pink-200">
-          <ProjectTitle />
+          <ProjectTitle title={"プロジェクト"} />
         </div>
 
         <div className="flex-grow overflow-hidden">

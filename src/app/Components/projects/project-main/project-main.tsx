@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useProjectForm } from '@/app/hooks/useProjectForm';
+import CONSTANTS from "@/app/utils/common-constants";
+import { useProjectForm } from '@/app/hooks/projects/useProjectForm';
 import ProjectCreateForm from '@/app/Components/projects/project-main/project-create/project-create-form';
 import ProjectList from '@/app/Components/projects/project-main/project-list/project-list';
 
@@ -21,7 +22,7 @@ const ProjectMain = ({
     const router = useRouter();
 
     if (userId === undefined) {
-        router.push('/auth/signin');
+        router.push(CONSTANTS.AUTH_SIGNIN);
     }
 
     const {
@@ -44,10 +45,10 @@ const ProjectMain = ({
 
             <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
                 <div className="h-full">
-                <ProjectList
-                    projectList={projectList}
-                    isLoading={isLoading}
-                />
+                    <ProjectList
+                        projectList={projectList}
+                        isLoading={isLoading}
+                    />
                 </div>
             </div>
         </div>
