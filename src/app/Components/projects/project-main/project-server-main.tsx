@@ -1,4 +1,3 @@
-import React from 'react';
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
 import ProjectMain from '@/app/Components/projects/project-main/project-main';
 

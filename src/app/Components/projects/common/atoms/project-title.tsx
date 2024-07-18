@@ -7,7 +7,7 @@ import React from 'react';
 const ProjectTitle = () => {
     return (
         <div className="flex justify-center items-center">
-            <h1 className="px-6 py-2 border border-red-200">Title</h1>
+            <h1 className="text-3xl font-bold text-center p-4">プロジェクト</h1>
         </div>
     );
 }

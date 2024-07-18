@@ -1,4 +1,3 @@
-import React from 'react';
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import ProjectServerMain from '@/app/Components/projects/project-main/project-server-main';
 
