@@ -3,8 +3,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useProjectForm } from '@/app/hooks/useProjectForm';
-import ProjectCreateForm from '@/app/Components/projects/project-create/project-create-form';
-import ProjectList from '@/app/Components/projects/project-list/project-list';
+import ProjectCreateForm from '@/app/Components/projects/project-main/project-create/project-create-form';
+import ProjectList from '@/app/Components/projects/project-main/project-list/project-list';
 
 interface ProjectMainProps {
     userId: string | undefined,

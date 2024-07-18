@@ -5,8 +5,8 @@ import { Form } from '@/components/ui/form';
 import * as z from 'zod';
 import { useProjectForm } from '@/app/hooks/useProjectForm';
 import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
-import ProjectCreateInput from '@/app/Components/projects/project-create/atoms/project-create-input';
-import ProjectCreateButton from '@/app/Components/projects/project-create/atoms/project-create-button';
+import ProjectCreateInput from '@/app/Components/projects/project-main/project-create/atoms/project-create-input';
+import ProjectCreateButton from '@/app/Components/projects/project-main/project-create/atoms/project-create-button';
 import { UseFormReturn } from 'react-hook-form';
 
 interface ProjectCreateFormProps {
