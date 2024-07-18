@@ -1,4 +1,3 @@
-import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import ProjectServerDetail from '@/app/Components/projects/project-detail/project-server-detail';
 
 /**
@@ -13,18 +12,10 @@ const ProjectDetailPage = ({
         projectId: string 
     } 
 }) => {
-    console.log(params.projectId);
-
     return (
         <div className="flex flex-col h-full bg-green-200">
-        <div className="p-2 border border-pink-200">
-          <ProjectTitle />
+          <ProjectServerDetail projectId={params.projectId} />
         </div>
-
-        <div className="flex-grow overflow-hidden">
-          <ProjectServerDetail />
-        </div>
-      </div>
     );
 }
 

@@ -3,9 +3,8 @@ import { useForm } from "react-hook-form";
 import * as z from 'zod';
 import { Project } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CONSTANTS from "@/app/utils/common-constants";
 import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
 
 interface useProjectFormProps {
     userId: string | undefined,
@@ -14,7 +13,7 @@ interface useProjectFormProps {
 /**
  * プロジェクトのカスタムhooks
  * @param userId
- * @returns form, onSubmit
+ * @returns カスタムhooks
  */
 export const useProjectForm = ({
     userId,
@@ -27,7 +26,7 @@ export const useProjectForm = ({
             setIsLoading(true);
             try {
                 console.log(`fetch start.`);
-                const res = await fetch(`${BACKEND_URL}/projects/${userId}`);
+                const res = await fetch(`${CONSTANTS.GET_PROJECT_DATAS_BY_USER_ID_URL}/${userId}`);
         
                 console.log(`fetch end. res.ok? : ${res.ok}`);
                 if (res.ok) {
@@ -60,7 +59,7 @@ export const useProjectForm = ({
 
         try {
             console.log(`fetch start.`);
-            const res = await fetch(`${BACKEND_URL}/projects`, {
+            const res = await fetch(`${CONSTANTS.PROJECT_DATAS_URL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
