@@ -6,8 +6,8 @@ import { useProjectDetail } from '@/app/hooks/projects/useProjectDetail';
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 
 interface ProjectDetailProps {
-    projectId: string,
-    userId: string | undefined,
+    projectId: string;
+    userId: string | undefined;
 };
 
 /**
@@ -29,11 +29,9 @@ const ProjectDetail = ({
     const {
         project,
         isLoading,
-    } = useProjectDetail({
+    } = useProjectDetail({ 
         projectId: projectId,
     });
-
-    console.log(project);
 
     return (
         <>
@@ -46,11 +44,13 @@ const ProjectDetail = ({
                     <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
                         <div className="h-full">
                             {isLoading ? (
-                                <div>loading...</div>
+                                <div className="flex items-center justify-center h-full">
+                                    <div className="text-2xl font-bold text-gray-400">Loading...</div>
+                                </div>
                             ) : (
-                                <div>
-                                    <div>{project?.name}</div>
-                                    <div>{project?.description}</div>
+                                <div className="p-6">
+                                    <div className="text-2xl font-bold text-gray-800">{project?.name}</div>
+                                    <div className="text-sm text-gray-400">{project?.description}</div>
                                 </div>
                             )}
                         </div>
