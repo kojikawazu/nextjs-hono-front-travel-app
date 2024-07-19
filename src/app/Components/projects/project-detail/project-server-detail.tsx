@@ -1,5 +1,7 @@
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
-import ProjectDetail from './project-detail';
+import CONSTANTS from "@/app/utils/common-constants";
+import { Project } from "@prisma/client";
+import ProjectDetail from '@/app/Components/projects/project-detail/project-detail';
 
 interface ProjectServerDetailProps {
     projectId: string,
@@ -16,7 +18,7 @@ const ProjectServerDetail = async ({
     const { data: {user} } = await supabase.auth.getUser();
 
     return (
-        <ProjectDetail 
+        <ProjectDetail
             projectId={projectId}
             userId={user?.id}
         />
