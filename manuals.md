@@ -55,6 +55,16 @@ bunx prisma generate
 bun add react-hook-form zod @hookform/resolvers react-modal
 ```
 
+# テスト導入
+
+```bash
+bun add -d jest @testing-library/react @testing-library/jest-dom @testing-library/user-event ts-jest
+bun add -d @types/jest
+bun add -d jest-environment-jsdom
+bun add -d jsdom
+bun add -d @happy-dom/global-registrator
+```
+
 
 # その他のインストール
 
