@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBarItem from './side-bar-item';
+import SideBarItem from "@/app/Components/layout/sidebar/atoms/side-bar-item";
 
 /**
  * サイドバー
