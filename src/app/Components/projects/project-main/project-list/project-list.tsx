@@ -5,7 +5,7 @@ import { Project } from "@prisma/client";
 import ProjectListData from '@/app/Components/projects/project-main/project-list/atoms/project-list-data';
 import NotProjectData from '@/app/Components/projects/project-main/project-list/atoms/not-project-data';
 import LoadingProject from '@/app/Components/projects/project-main/project-list/atoms/loading-project';
-import ProjectListTitle from './atoms/project-list-title';
+import ProjectListTitle from '@/app/Components/projects/project-main/project-list/atoms/project-list-title';
 
 interface ProjectListProps {
     projectList: Project[];
