@@ -1,6 +1,4 @@
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
-import CONSTANTS from "@/app/utils/common-constants";
-import { Project } from "@prisma/client";
 import ProjectDetail from '@/app/Components/projects/project-detail/project-detail';
 
 interface ProjectServerDetailProps {

@@ -1,12 +1,11 @@
 'use client';
 
-import React from 'react';
-import { Form } from '@/components/ui/form';
-import * as z from 'zod';
-import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
-import ProjectCreateInput from '@/app/Components/projects/project-main/project-create/atoms/project-create-input';
-import ProjectCreateButton from '@/app/Components/projects/project-main/project-create/atoms/project-create-button';
 import { UseFormReturn } from 'react-hook-form';
+import * as z from 'zod';
+import { Form } from '@/components/ui/form';
+import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
+import ProjectFormInput from '@/app/Components/projects/common/atoms/project-form-input';
+import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 
 interface ProjectCreateFormProps {
     form: UseFormReturn<{
@@ -30,23 +29,26 @@ const ProjectCreateForm = ({
         <div>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onCreateSubmit)}>
-                    <ProjectCreateInput
+                    <ProjectFormInput
                         control={form.control}
                         name="name"
                         label="プロジェクト名"
                         placeholder="プロジェクト名を入力"
+                        className="mb-4"
                     />
 
-                    <ProjectCreateInput
+                    <ProjectFormInput
                         control={form.control}
                         name="description"
                         label="説明"
                         placeholder="説明を入力"
+                        className="mb-4"
                     />
 
-                    <ProjectCreateButton 
+                    <ProjectFormBtn 
                         label="プロジェクト作成"
                         type="submit"
+                        className=""
                     />
                 </form>
             </Form>
