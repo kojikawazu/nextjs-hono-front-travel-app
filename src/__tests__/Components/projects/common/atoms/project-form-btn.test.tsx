@@ -1,24 +1,31 @@
-import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import { describe, test, expect, afterEach } from "bun:test";
-import ProjectCreateButton from '@/app/Components/projects/project-main/project-create/atoms/project-create-button';
+import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 
-describe('ProjectCreateButton', () => {
+describe('ProjectFormBtn', () => {
     afterEach(() => {
         cleanup();
     });
 
     test('renders with the correct label', () => {
-        render(<ProjectCreateButton label="Create Project" type="button" />);
+        render(<ProjectFormBtn label="Create Project" type="button" className='mb-4' />);
         const buttonElement = screen.getByText('Create Project');
         expect(buttonElement).not.toBeNull();
         expect(buttonElement.tagName.toLowerCase()).toBe('button');
+        const classes = ['mb-4'];
+        classes.forEach(cls => {
+            expect(buttonElement.classList.contains(cls)).toBe(true);
+        });
     });
 
     test('has the correct type attribute', () => {
-        render(<ProjectCreateButton label="Create Project" type="submit" />);
+        render(<ProjectFormBtn label="Create Project" type="submit" className='mb-4' />);
         const buttonElement = screen.getByText('Create Project');
         expect(buttonElement).not.toBeNull();
         expect(buttonElement.getAttribute('type')).toBe('submit');
+        const classes = ['mb-4'];
+        classes.forEach(cls => {
+            expect(buttonElement.classList.contains(cls)).toBe(true);
+        });
     });
 });

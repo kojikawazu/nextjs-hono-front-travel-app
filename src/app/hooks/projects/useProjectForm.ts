@@ -24,15 +24,17 @@ export const useProjectForm = ({
     useEffect(() => {
         const fetchProjects = async () => {
             setIsLoading(true);
+            
             try {
-                console.log(`fetch start.`);
+                console.log(`[useProjectForm] fetch start.`);
                 const res = await fetch(`${CONSTANTS.GET_PROJECT_DATAS_BY_USER_ID_URL}/${userId}`);
-        
-                console.log(`fetch end. res.ok? : ${res.ok}`);
+                console.log(`[useProjectForm] fetch end. res.ok? : ${res.ok}`);
+
                 if (res.ok) {
                     const projects = await res.json();
                     setProjectList(projects);
                 }
+
                 setIsLoading(false);
             } catch (err) {
                 setIsLoading(false);

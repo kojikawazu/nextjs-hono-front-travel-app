@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import CONSTANTS from "@/app/utils/common-constants";
 import { useProjectDetail } from '@/app/hooks/projects/useProjectDetail';
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
+import ProjectDetailContent from '@/app/Components/projects/project-detail/project-detail-contents/project-detail-contents';
+import TravelCreateForm from '@/app/Components/projects/project-detail/travel-create-form/travel-create-form';
+import { useTravelForm } from '@/app/hooks/money/useTravelForm';
 
 interface ProjectDetailProps {
     projectId: string;
@@ -33,6 +36,14 @@ const ProjectDetail = ({
         projectId: projectId,
     });
 
+    const {
+        form,
+        onCreateSubmit,
+    } = useTravelForm({
+        userId: userId,
+        projectId: projectId,
+    });
+
     return (
         <>
             <div className="p-2 border border-pink-200">
@@ -41,25 +52,27 @@ const ProjectDetail = ({
 
             <div className="flex-grow overflow-hidden">
                 <div className="flex flex-col h-full p-6 space-y-6">
-                    <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
-                        <div className="h-full">
-                            {isLoading ? (
-                                <div className="flex items-center justify-center h-full">
-                                    <div className="text-2xl font-bold text-gray-400">Loading...</div>
-                                </div>
-                            ) : (
-                                <div className="p-6">
-                                    <div className="text-2xl font-bold text-gray-800">{project?.name}</div>
-                                    <div className="text-sm text-gray-400">{project?.description}</div>
-                                </div>
-                            )}
-                        </div>
+                    <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">                    
+                        <ProjectDetailContent
+                            isLoading={isLoading}
+                            name={project?.name ?? 'Non Title'}
+                            description={project?.description ?? 'Non Description'}
+                        />
                     </div>
+
+                    <div className="bg-white rounded-lg shadow p-4">
+                        <TravelCreateForm  
+                            form={form}
+                            onCreateSubmit={onCreateSubmit}
+                        />
+                    </div>
+                    
+                    <div>MoneyList</div>
+                    <div>MoneyTotal</div>
                 </div>
             </div>
         </>
-        
-    )
+    );
 }
 
 export default ProjectDetail;

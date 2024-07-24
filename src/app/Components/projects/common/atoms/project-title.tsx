@@ -1,10 +1,10 @@
-
 interface ProjectTitleProps {
     title: string;
 };
 
 /**
  * プロジェクトタイトル
+ * @param title
  * @returns JSX
  */
 const ProjectTitle = ({

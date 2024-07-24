@@ -40,7 +40,7 @@ bun add @prisma/client
 
 # Prismaの初期化
 bunx prisma init
-bunx prisma pull
+bunx prisma db pull
 
 # Prismaを使用しマイグレーション
 bunx prisma migrate dev --name change-user
