@@ -11,11 +11,12 @@ datasource db {
 model User {
   id        String    @id @default(uuid())
   email     String    @unique
-  fullName  String?
   avatarUrl String?
   createdAt DateTime  @default(now())
+  fullName  String?
   updatedAt DateTime  @updatedAt
   projects  Project[]
+  Travel    Travel[]
 }
 
 model Project {
@@ -26,4 +27,29 @@ model Project {
   updatedAt   DateTime @updatedAt
   userId      String
   User        User     @relation(fields: [userId], references: [id])
+  Travel      Travel[]
+}
+
+model Travel {
+  id          String    @id
+  name        String
+  description String?
+  amount      Int?
+  date        DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  userId      String
+  projectId   String
+  categoryId  String
+  Category    Category  @relation(fields: [categoryId], references: [id])
+  Project     Project   @relation(fields: [projectId], references: [id])
+  User        User      @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id        String   @id
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  Travel    Travel[]
 }
