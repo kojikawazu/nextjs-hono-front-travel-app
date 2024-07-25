@@ -9,44 +9,26 @@ import { travelCreateSchema } from "@/app/Components/schema/travel-create-schema
 interface useProjectFormProps {
     userId: string | undefined;
     projectId: string | undefined;
+    travelDefaultList: Travel[];
 };
 
 /**
  * 旅行のカスタムhooks
  * @param userId
  * @param projectId
+ * @param travelDefaultList
  * @returns 旅行のカスタムhooks
  */
 export const useTravelForm = ({
     userId,
     projectId,
+    travelDefaultList,
 }: useProjectFormProps) => {
-    const [travelList, setTravelList] = useState<Travel[]>([]);
-    const [isLoading, setIsLoading]   = useState<boolean>(true);
+    const [travelList, setTravelList] = useState<Travel[]>(travelDefaultList);
 
     useEffect(() => {
-        const fetchTravels = async () => {
-            setIsLoading(true);
-
-            try {
-                console.log(`[useTravelForm] fetch start.`);
-                const res = await fetch(`${CONSTANTS.TRAVEL_DATAS_URL}/${userId}/${projectId}`);
-                console.log(`[useTravelForm] fetch end. res.ok? : ${res.ok}`);
-
-                if (res.ok) {
-                    const travels = await res.json();
-                    setTravelList(travels);
-                }
-
-                setIsLoading(false);
-            } catch (err) {
-                setIsLoading(false);
-                console.error(err);
-            }
-        }
-
-        fetchTravels();
-    }, [userId, projectId]);
+        setTravelList(travelDefaultList);
+    }, [travelDefaultList]);
 
     const form = useForm<z.infer<typeof travelCreateSchema>>({
         resolver: zodResolver(travelCreateSchema),
@@ -69,7 +51,7 @@ export const useTravelForm = ({
         } = values;
 
         try {
-            console.log(`fetch start.`);
+            console.log(`[useTravelForm] fetch start.`);
             const res = await fetch(`${CONSTANTS.TRAVEL_DATAS_URL}`, {
                 method: 'POST',
                 headers: {
@@ -85,8 +67,8 @@ export const useTravelForm = ({
                     projectId: projectId,
                 }),
             });
-    
-            console.log(`fetch end. res.ok? : ${res.ok}`);
+            console.log(`[useTravelForm] fetch end. res.ok? : ${res.ok}`);
+            
             if (res.ok) {
                 const travel: Travel = await res.json();
                 setTravelList(prevTravelList => [...prevTravelList, travel]);
@@ -101,5 +83,6 @@ export const useTravelForm = ({
     return {
         form,
         onCreateSubmit,
+        travelList,
     };
 };
