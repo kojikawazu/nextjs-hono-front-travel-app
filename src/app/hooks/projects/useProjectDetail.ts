@@ -20,6 +20,7 @@ export const useProjectDetail = ({
     useEffect(() => {
         const fetchProject = async () => {
             setIsLoading(true);
+
             try {
                 console.log(`[useProjectDetail] fetch start.`);
                 const res = await fetch(`${CONSTANTS.GET_PROJECT_DATAS_BY_PROJECT_ID_URL}/${projectId}`);
@@ -29,6 +30,7 @@ export const useProjectDetail = ({
                     const project = await res.json();
                     setProject(project);
                 }
+                
                 setIsLoading(false);
             } catch (err) {
                 setIsLoading(false);
