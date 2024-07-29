@@ -22,6 +22,8 @@ bun shadcn-ui init
 bun shadcn-ui add button
 bun shadcn-ui add form
 bun shadcn-ui add input
+bun shadcn-ui add card
+bun shadcn-ui add skeleton
 ```
 
 # Supabaseの型収集

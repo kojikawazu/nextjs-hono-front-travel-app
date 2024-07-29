@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { Travel } from "@prisma/client";
-import ProjectDetailLoading from "../project-detail-contents/atoms/project-detail-loading";
+import TravelCard from "@/app/Components/projects/project-detail/travel-list/molecules/travel-card";
 
 interface TravelListProps {
     travelDefaultList: Travel[];
-    isLoading: boolean;
 };
 
 /**
  * 旅行リスト
  * @param travelDefaultList
- * @param isLoading
  * @returns JSX
  */
 const TravelList = ({
     travelDefaultList,
-    isLoading,
 }: TravelListProps) => {
     const [travelList, setTravelList] = useState<Travel[]>(travelDefaultList);
 
@@ -24,21 +21,11 @@ const TravelList = ({
     }, [travelDefaultList]);
 
     return (
-        <>
-            {isLoading ? (
-                <ProjectDetailLoading label={"Loading..."} />
-            ) : (
-                <div>
-                    {travelList.map((travel) => (
-                        <div key={travel.id}>
-                            <div>{travel.name}</div>
-                            <div>{travel.description}</div>
-                            <div>{travel.amount}</div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {travelList.map((travel) => (
+                <TravelCard key={travel.id} travel={travel} />
+            ))}
+        </div>
     );
 }
 
