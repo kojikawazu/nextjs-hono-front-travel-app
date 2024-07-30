@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Travel } from "@prisma/client";
 import CONSTANTS from "@/app/utils/common-constants";
-import { travelCreateSchema } from "@/app/Components/schema/travel-create-schema";
+import { travelCreateSchema } from "@/app/schema/travel-create-schema";
 
 interface useProjectFormProps {
     userId: string | undefined;

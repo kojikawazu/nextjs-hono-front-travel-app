@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { Project } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CONSTANTS from "@/app/utils/common-constants";
-import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
+import { projectCreateSchema } from "@/app/schema/project-create-schema";
 
 interface useProjectFormProps {
     userId: string | undefined,
