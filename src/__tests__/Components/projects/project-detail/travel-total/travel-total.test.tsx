@@ -1,5 +1,5 @@
+import React from 'react';
 import { render, screen, cleanup  } from '@testing-library/react';
-import { describe, test, expect, afterEach } from "bun:test";
 import TravelTotal from '@/app/Components/projects/project-detail/travel-total/travel-total';
 
 describe('TravelTotal', () => {

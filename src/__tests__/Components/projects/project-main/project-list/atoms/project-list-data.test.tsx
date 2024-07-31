@@ -1,7 +1,5 @@
-// ProjectListData.test.tsx
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
-import { describe, test, expect, afterEach } from "bun:test";
 import ProjectListData from '@/app/Components/projects/project-main/project-list/atoms/project-list-data';
 
 describe('ProjectListData', () => {

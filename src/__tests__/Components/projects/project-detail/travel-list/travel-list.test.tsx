@@ -1,5 +1,5 @@
-import { render, screen, cleanup  } from '@testing-library/react';
-import { describe, test, expect, afterEach } from "bun:test";
+import React from 'react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { Travel } from "@prisma/client";
 import TravelList from '@/app/Components/projects/project-detail/travel-list/travel-list';
 
@@ -31,28 +31,25 @@ describe('TravelList', () => {
         },
     ];
 
+    const onDeleteMock = jest.fn().mockResolvedValue(undefined);
+
     afterEach(() => {
         cleanup();
+        onDeleteMock.mockClear();
     });
 
     test("should render travel list with travel cards", () => {
-        render(<TravelList travelDefaultList={travelDefaultList} />);
+        render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
         
         travelDefaultList.forEach(travel => {
-            expect(screen.queryByText(travel.name)).not.toBeNull();
-        });
-
-        travelDefaultList.forEach(travel => {
-            expect(screen.queryByText(travel.description as string)).not.toBeNull();
-        });
-
-        travelDefaultList.forEach(travel => {
-            expect(screen.queryByText(`金額: ${travel.amount}円`)).not.toBeNull();
+            expect(screen.queryByText(travel.name)).toBeInTheDocument();
+            expect(screen.queryByText(travel.description as string)).toBeInTheDocument();
+            expect(screen.queryByText(`金額: ${travel.amount}円`)).toBeInTheDocument();
         });
     });
 
     test("should update travel list when travelDefaultList prop changes", () => {
-        const { rerender } = render(<TravelList travelDefaultList={travelDefaultList} />);
+        const { rerender } = render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
 
         const newTravelList: Travel[] = [
             {
@@ -69,14 +66,26 @@ describe('TravelList', () => {
             },
         ];
 
-        rerender(<TravelList travelDefaultList={newTravelList} />);
+        rerender(<TravelList travelDefaultList={newTravelList} onDelete={onDeleteMock} />);
         
         newTravelList.forEach(travel => {
-            expect(screen.queryByText(travel.name)).not.toBeNull();
+            expect(screen.queryByText(travel.name)).toBeInTheDocument();
         });
 
         travelDefaultList.forEach(travel => {
-            expect(screen.queryByText(travel.name)).toBeNull();
+            expect(screen.queryByText(travel.name)).not.toBeInTheDocument();
         });
+    });
+
+    test("should call onDelete when delete button is clicked", () => {
+        render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
+        
+        const deleteButton = screen.getByLabelText(`delete-${travelDefaultList[0].id}`);
+        fireEvent.click(deleteButton);
+
+        const confirmButton = screen.getByText("削除");
+        fireEvent.click(confirmButton);
+
+        expect(onDeleteMock).toHaveBeenCalledWith(travelDefaultList[0].id);
     });
 });

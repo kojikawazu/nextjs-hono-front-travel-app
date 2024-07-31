@@ -80,9 +80,29 @@ export const useTravelForm = ({
 
     }, [userId, projectId, form.reset]);
 
+    const onDelete = async (travelId: string) => {
+        //console.log(`[useTravelForm] onDelete start. travelId: ${travelId}`);
+
+        try {
+            console.log(`[useTravelForm] fetch start.`);
+            const res = await fetch(`${CONSTANTS.TRAVEL_DATAS_URL}/${travelId}`, {
+                method: 'DELETE',
+            });
+            console.log(`[useTravelForm] fetch end. res.ok? : ${res.ok}`);
+
+            if (res.ok) {
+                const travel: Travel = await res.json();
+                setTravelList(prevTravelList => prevTravelList.filter((item) => item.id !== travel.id));
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return {
+        travelList,
         form,
         onCreateSubmit,
-        travelList,
+        onDelete,
     };
 };
