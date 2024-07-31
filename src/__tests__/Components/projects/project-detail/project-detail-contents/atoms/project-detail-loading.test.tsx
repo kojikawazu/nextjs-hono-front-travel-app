@@ -1,5 +1,5 @@
+import React from 'react';
 import { render, screen, cleanup  } from '@testing-library/react';
-import { describe, test, expect, afterEach } from "bun:test";
 import ProjectDetailLoading from '@/app/Components/projects/project-detail/project-detail-contents/atoms/project-detail-loading';
 
 describe('ProjectDetailLoading', () => {

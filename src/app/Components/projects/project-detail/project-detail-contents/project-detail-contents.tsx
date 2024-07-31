@@ -1,3 +1,4 @@
+import React from 'react';
 import ProjectDetailLoading from '@/app/Components/projects/project-detail/project-detail-contents/atoms/project-detail-loading';
 
 interface ProjectDetailContentProps {

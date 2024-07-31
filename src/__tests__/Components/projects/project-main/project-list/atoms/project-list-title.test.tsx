@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
-import { describe, test, expect, beforeAll, afterEach, jest } from "bun:test";
 import ProjectListTitle from '@/app/Components/projects/project-main/project-list/atoms/project-list-title';
 
 describe('ProjectListTitle', () => {

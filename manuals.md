@@ -67,6 +67,11 @@ bun add -d jsdom
 bun add -d @happy-dom/global-registrator
 ```
 
+```bash
+npm i --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event ts-jest jest-environment-jsdom
+npm i --save-dev ts-node
+```
+
 
 # その他のインストール
 

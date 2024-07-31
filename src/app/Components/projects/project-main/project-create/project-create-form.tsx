@@ -1,9 +1,10 @@
 'use client';
 
+import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import * as z from 'zod';
 import { Form } from '@/components/ui/form';
-import { projectCreateSchema } from "@/app/Components/schema/project-create-schema";
+import { projectCreateSchema } from "@/app/schema/project-create-schema";
 import ProjectFormInput from '@/app/Components/projects/common/atoms/project-form-input';
 import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 

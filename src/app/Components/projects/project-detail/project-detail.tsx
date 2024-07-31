@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import CONSTANTS from "@/app/utils/common-constants";
 import { Travel } from "@prisma/client";
@@ -44,9 +45,10 @@ const ProjectDetail = ({
     });
 
     const {
+        travelList,
         form,
         onCreateSubmit,
-        travelList,
+        onDelete,
     } = useTravelForm({
         userId: userId,
         projectId: projectId,
@@ -84,6 +86,7 @@ const ProjectDetail = ({
                     <div className="flex-grow bg-white rounded-lg shadow p-3">
                         <TravelList 
                             travelDefaultList={travelList}
+                            onDelete={onDelete}
                         />
                     </div>
                 </div>

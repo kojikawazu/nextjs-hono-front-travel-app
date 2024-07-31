@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
-import { describe, test, expect, afterEach } from "bun:test";
 import NotProjectData from '@/app/Components/projects/project-main/project-list/atoms/not-project-data';
 
 describe('NotProjectData', () => {
