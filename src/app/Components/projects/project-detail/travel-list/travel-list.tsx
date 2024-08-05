@@ -4,18 +4,21 @@ import TravelCard from "@/app/Components/projects/project-detail/travel-list/mol
 
 interface TravelListProps {
     travelDefaultList: Travel[];
-    onDelete: (travelId: string) => Promise<void>;
+    handleUpdateModalOpen: (travel: Travel) => void;
+    handleDeleteModalOpen: (travel: Travel) => void;
 };
 
 /**
  * 旅行リスト
  * @param travelDefaultList
- * @param onDelete
+ * @param handleUpdateModalOpen
+ * @param handleDeleteModalOpen
  * @returns JSX
  */
 const TravelList = ({
     travelDefaultList,
-    onDelete,
+    handleUpdateModalOpen,
+    handleDeleteModalOpen,
 }: TravelListProps) => {
     const [travelList, setTravelList] = useState<Travel[]>(travelDefaultList);
 
@@ -28,8 +31,9 @@ const TravelList = ({
             {travelList.map((travel) => (
                 <TravelCard 
                     key={travel.id} 
-                    travel={travel} 
-                    onDelete={onDelete}
+                    travel={travel}
+                    handleUpdateModalOpen={handleUpdateModalOpen}
+                    handleDeleteModalOpen={handleDeleteModalOpen}
                 />
             ))}
         </div>

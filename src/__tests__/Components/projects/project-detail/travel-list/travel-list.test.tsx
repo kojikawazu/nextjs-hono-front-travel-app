@@ -31,15 +31,17 @@ describe('TravelList', () => {
         },
     ];
 
-    const onDeleteMock = jest.fn().mockResolvedValue(undefined);
+    const handleDeleteModalOpenMock = jest.fn().mockResolvedValue(undefined);
+    const handleUpdateModalOpenMock = jest.fn().mockResolvedValue(undefined);
 
     afterEach(() => {
         cleanup();
-        onDeleteMock.mockClear();
+        handleDeleteModalOpenMock.mockClear();
+        handleUpdateModalOpenMock.mockClear();
     });
 
     test("should render travel list with travel cards", () => {
-        render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
+        render(<TravelList travelDefaultList={travelDefaultList} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         
         travelDefaultList.forEach(travel => {
             expect(screen.queryByText(travel.name)).toBeInTheDocument();
@@ -49,7 +51,7 @@ describe('TravelList', () => {
     });
 
     test("should update travel list when travelDefaultList prop changes", () => {
-        const { rerender } = render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
+        const { rerender } = render(<TravelList travelDefaultList={travelDefaultList} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
 
         const newTravelList: Travel[] = [
             {
@@ -66,7 +68,7 @@ describe('TravelList', () => {
             },
         ];
 
-        rerender(<TravelList travelDefaultList={newTravelList} onDelete={onDeleteMock} />);
+        rerender(<TravelList travelDefaultList={newTravelList} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         
         newTravelList.forEach(travel => {
             expect(screen.queryByText(travel.name)).toBeInTheDocument();
@@ -77,15 +79,21 @@ describe('TravelList', () => {
         });
     });
 
-    test("should call onDelete when delete button is clicked", () => {
-        render(<TravelList travelDefaultList={travelDefaultList} onDelete={onDeleteMock} />);
+    test("should call handleDeleteModalOpen when delete button is clicked", () => {
+        render(<TravelList travelDefaultList={travelDefaultList} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         
         const deleteButton = screen.getByLabelText(`delete-${travelDefaultList[0].id}`);
         fireEvent.click(deleteButton);
 
-        const confirmButton = screen.getByText("削除");
-        fireEvent.click(confirmButton);
+        expect(handleDeleteModalOpenMock).toHaveBeenCalledWith(travelDefaultList[0]);
+    });
 
-        expect(onDeleteMock).toHaveBeenCalledWith(travelDefaultList[0].id);
+    test("should call handleDeleteModalOpen when update button is clicked", () => {
+        render(<TravelList travelDefaultList={travelDefaultList} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
+        
+        const updateButton = screen.getByLabelText(`update-${travelDefaultList[0].id}`);
+        fireEvent.click(updateButton);
+
+        expect(handleUpdateModalOpenMock).toHaveBeenCalledWith(travelDefaultList[0]);
     });
 });

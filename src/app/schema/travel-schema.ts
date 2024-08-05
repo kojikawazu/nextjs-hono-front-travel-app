@@ -20,3 +20,15 @@ export const travelCreateSchema = z.object({
     date: dateValidation,
     category: z.string().min(1, 'カテゴリーを入力してください。'),
 });
+
+/**
+ * 旅行更新のバリデーションスキーマ
+ */
+export const travelUpdateSchema = z.object({
+    travelId: z.string().min(1, 'IDを入力してください。'),
+    name: z.string().min(1, '遠征名を入力してください。'),
+    description: z.string().min(1, '遠征の概要を入力してください。'),
+    amount: z.number().min(1, '金額を入力してください。'),
+    date: dateValidation,
+    category: z.string().min(1, 'カテゴリーを入力してください。'),
+});
