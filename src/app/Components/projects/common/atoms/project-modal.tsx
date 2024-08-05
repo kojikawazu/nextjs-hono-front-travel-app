@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { Travel } from "@prisma/client";
+import { Travel } from '@prisma/client';
 
 interface ProjectModalProps {
     modalIsOpen: boolean;
@@ -11,7 +11,7 @@ interface ProjectModalProps {
     confirmText?: string;
     cancelText?: string;
     okText?: string;
-};
+}
 
 /**
  * プロジェクトモーダル
@@ -30,10 +30,10 @@ const ProjectModal = ({
     closeModal,
     currentTravel,
     handleExecute,
-    contentLabel = "確認",
-    confirmText = "本当によろしいですか？",
-    cancelText = "キャンセル",
-    okText = "実行",
+    contentLabel = '確認',
+    confirmText = '本当によろしいですか？',
+    cancelText = 'キャンセル',
+    okText = '実行',
 }: ProjectModalProps) => {
     return (
         <Modal
@@ -45,16 +45,28 @@ const ProjectModal = ({
         >
             {currentTravel && (
                 <>
-                    <h2 className="text-xl font-semibold mb-4">{contentLabel}</h2>
+                    <h2 className="text-xl font-semibold mb-4">
+                        {contentLabel}
+                    </h2>
                     <p>{confirmText}</p>
                     <div className="flex justify-end mt-4">
-                        <button onClick={closeModal} className="mr-2 px-4 py-2 bg-gray-300 rounded">{cancelText}</button>
-                        <button onClick={handleExecute} className="px-4 py-2 bg-red-500 text-white rounded">{okText}</button>
+                        <button
+                            onClick={closeModal}
+                            className="mr-2 px-4 py-2 bg-gray-300 rounded"
+                        >
+                            {cancelText}
+                        </button>
+                        <button
+                            onClick={handleExecute}
+                            className="px-4 py-2 bg-red-500 text-white rounded"
+                        >
+                            {okText}
+                        </button>
                     </div>
                 </>
             )}
         </Modal>
     );
-}
+};
 
 export default ProjectModal;

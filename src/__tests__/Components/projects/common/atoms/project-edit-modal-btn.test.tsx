@@ -11,7 +11,9 @@ describe('ProjectEditModalBtn', () => {
     });
 
     test('renders the button with the correct aria-label', () => {
-        const { container } = render(<ProjectEditModalBtn id="test-id" handleOpen={handleOpenMock} />);
+        const { container } = render(
+            <ProjectEditModalBtn id="test-id" handleOpen={handleOpenMock} />
+        );
         const button = screen.getByRole('button', { name: /update-test-id/i });
         expect(button).toBeInTheDocument();
         expect(button).toHaveClass('text-blue-500 hover:text-blue-700');
@@ -19,7 +21,9 @@ describe('ProjectEditModalBtn', () => {
     });
 
     test('calls handleOpen when the button is clicked', () => {
-        render(<ProjectEditModalBtn id="test-id" handleOpen={handleOpenMock} />);
+        render(
+            <ProjectEditModalBtn id="test-id" handleOpen={handleOpenMock} />
+        );
         const button = screen.getByRole('button', { name: /update-test-id/i });
         fireEvent.click(button);
         expect(handleOpenMock).toHaveBeenCalledTimes(1);

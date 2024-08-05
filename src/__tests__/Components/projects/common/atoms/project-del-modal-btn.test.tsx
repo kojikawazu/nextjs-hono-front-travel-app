@@ -11,7 +11,9 @@ describe('ProjectDelModalBtn', () => {
     });
 
     test('renders the button with the correct aria-label', () => {
-        const { container } = render(<ProjectDelModalBtn id="test-id" handleOpen={handleOpenMock} />);
+        const { container } = render(
+            <ProjectDelModalBtn id="test-id" handleOpen={handleOpenMock} />
+        );
         const button = screen.getByRole('button', { name: /delete-test-id/i });
         expect(button).toBeInTheDocument();
         expect(button).toHaveClass('text-red-500 hover:text-red-700');

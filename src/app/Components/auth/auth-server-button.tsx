@@ -6,12 +6,12 @@ import AuthClientButton from './auth-client-button';
  * @returns JSX
  */
 const AuthServerButton = async () => {
-  const supabase = supabaseServer();
-  const { data: {user} } = await supabase.auth.getUser();
+    const supabase = supabaseServer();
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
-  return (
-    <AuthClientButton session={user ? { user } : null} />
-  )
-}
+    return <AuthClientButton session={user ? { user } : null} />;
+};
 
-export default AuthServerButton
+export default AuthServerButton;

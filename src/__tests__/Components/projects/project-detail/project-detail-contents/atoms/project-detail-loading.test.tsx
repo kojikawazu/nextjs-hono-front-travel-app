@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, cleanup  } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import ProjectDetailLoading from '@/app/Components/projects/project-detail/project-detail-contents/atoms/project-detail-loading';
 
 describe('ProjectDetailLoading', () => {
@@ -20,7 +20,9 @@ describe('ProjectDetailLoading', () => {
 
     test('renders without label', () => {
         render(<ProjectDetailLoading label="" />);
-        const labelElement = document.querySelector('.text-2xl.font-bold.text-gray-400');
+        const labelElement = document.querySelector(
+            '.text-2xl.font-bold.text-gray-400'
+        );
         expect(labelElement).not.toBeNull();
         if (labelElement) {
             expect(labelElement.textContent).toBe('');
@@ -42,7 +44,7 @@ describe('ProjectDetailLoading', () => {
 
         // クラスリストを手動で確認
         const classes = ['text-2xl', 'font-bold', 'text-gray-400'];
-        classes.forEach(cls => {
+        classes.forEach((cls) => {
             expect(labelElement.classList.contains(cls)).toBe(true);
         });
     });

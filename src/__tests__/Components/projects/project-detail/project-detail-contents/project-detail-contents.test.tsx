@@ -25,7 +25,12 @@ describe('ProjectDetailContent', () => {
         render(<ProjectDetailContent description={desc} isLoading={false} />);
 
         const labelElement = screen.getByText((content, element) => {
-            return element !== null && element.tagName.toLowerCase() === 'div' && element.className.includes('text-gray-400') && content === '';
+            return (
+                element !== null &&
+                element.tagName.toLowerCase() === 'div' &&
+                element.className.includes('text-gray-400') &&
+                content === ''
+            );
         });
 
         expect(labelElement).not.toBeNull();
@@ -38,7 +43,7 @@ describe('ProjectDetailContent', () => {
     test('renders the project loading', () => {
         const loadingLabel = 'Loading...';
 
-        render(<ProjectDetailContent description={""} isLoading={true} />);
+        render(<ProjectDetailContent description={''} isLoading={true} />);
 
         const labelElement = screen.getByText(loadingLabel);
 

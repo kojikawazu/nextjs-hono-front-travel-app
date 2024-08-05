@@ -1,4 +1,5 @@
-const CC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+const CC_BACKEND_URL =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 const SC_BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3001';
 
 const CONSTANTS = {

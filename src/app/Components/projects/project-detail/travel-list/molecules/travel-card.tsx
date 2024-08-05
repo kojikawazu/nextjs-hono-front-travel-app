@@ -1,12 +1,12 @@
 import React from 'react';
-import { Travel } from "@prisma/client";
-import { 
-    Card, 
-    CardContent, 
-    CardDescription, 
-    CardHeader, 
-    CardTitle 
-} from "@/components/ui/card";
+import { Travel } from '@prisma/client';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import ProjectEditModalBtn from '@/app/Components/projects/common/atoms/project-edit-modal-btn';
 import ProjectDelModalBtn from '@/app/Components/projects/common/atoms/project-del-modal-btn';
 
@@ -14,7 +14,7 @@ interface TravelCardProps {
     travel: Travel;
     handleUpdateModalOpen: (travel: Travel) => void;
     handleDeleteModalOpen: (travel: Travel) => void;
-};
+}
 
 /**
  * 旅行カード
@@ -46,12 +46,17 @@ const TravelCard = ({
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <CardDescription>{travel.description || "No description"}</CardDescription>
-                    <p className="mt-2 font-semibold">金額: {travel.amount !== null ? `${travel.amount}円` : "0円"}</p>
+                    <CardDescription>
+                        {travel.description || 'No description'}
+                    </CardDescription>
+                    <p className="mt-2 font-semibold">
+                        金額:{' '}
+                        {travel.amount !== null ? `${travel.amount}円` : '0円'}
+                    </p>
                 </CardContent>
             </Card>
         </>
     );
-}
+};
 
 export default TravelCard;

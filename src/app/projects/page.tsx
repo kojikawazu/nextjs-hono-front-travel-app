@@ -7,16 +7,16 @@ import ProjectServerMain from '@/app/Components/projects/project-main/project-se
  */
 const ProjectPage = () => {
     return (
-      <div className="flex flex-col h-full bg-green-200">
-        <div className="p-2 border border-pink-200">
-          <ProjectTitle title={"プロジェクト"} />
-        </div>
+        <div className="flex flex-col h-full bg-green-200">
+            <div className="p-2 border border-pink-200">
+                <ProjectTitle title={'プロジェクト'} />
+            </div>
 
-        <div className="flex-grow overflow-hidden">
-          <ProjectServerMain />
+            <div className="flex-grow overflow-hidden">
+                <ProjectServerMain />
+            </div>
         </div>
-      </div>
-    )
-}
+    );
+};
 
 export default ProjectPage;

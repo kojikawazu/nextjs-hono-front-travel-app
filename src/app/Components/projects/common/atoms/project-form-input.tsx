@@ -1,8 +1,8 @@
 import React from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
-import { 
-    FormControl, 
+import {
+    FormControl,
     FormField,
     FormItem,
     FormLabel,
@@ -16,7 +16,7 @@ interface ProjectFormInputProps<T extends FieldValues> {
     placeholder: string;
     className: string;
     type?: string;
-};
+}
 
 /**
  * プロジェクトフォームのinput
@@ -28,35 +28,42 @@ interface ProjectFormInputProps<T extends FieldValues> {
  * @param type
  * @returns JSX
  */
-function ProjectFormInput<T extends FieldValues> ({
+function ProjectFormInput<T extends FieldValues>({
     control,
     name,
     label,
     placeholder,
     className,
-    type = "text",
+    type = 'text',
 }: ProjectFormInputProps<T>) {
     return (
         <FormField
             control={control}
             name={name}
             render={({ field, fieldState: { error } }) => (
-            <FormItem className={className}>
-                <FormLabel>{label}</FormLabel>
-                <FormControl>
-                    <Input 
-                        placeholder={placeholder} 
-                        {...field}
-                        type={type}
-                        value={type === "number" ? field.value || '' : field.value}
-                        onChange={(e) => {
-                            const value = type === "number" ? parseFloat(e.target.value) : e.target.value;
-                            field.onChange(value);
-                        }} 
-                    />
-                </FormControl>
-                {error && <FormMessage>{error.message}</FormMessage>}
-            </FormItem>
+                <FormItem className={className}>
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                        <Input
+                            placeholder={placeholder}
+                            {...field}
+                            type={type}
+                            value={
+                                type === 'number'
+                                    ? field.value || ''
+                                    : field.value
+                            }
+                            onChange={(e) => {
+                                const value =
+                                    type === 'number'
+                                        ? parseFloat(e.target.value)
+                                        : e.target.value;
+                                field.onChange(value);
+                            }}
+                        />
+                    </FormControl>
+                    {error && <FormMessage>{error.message}</FormMessage>}
+                </FormItem>
             )}
         />
     );

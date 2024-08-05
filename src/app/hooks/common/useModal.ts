@@ -9,15 +9,15 @@ export const useModal = () => {
 
     const openModal = () => {
         setModalIsOpen(true);
-    }
+    };
 
     const closeModal = () => {
         setModalIsOpen(false);
-    }
+    };
 
     return {
         modalIsOpen,
         openModal,
         closeModal,
     };
-}
+};

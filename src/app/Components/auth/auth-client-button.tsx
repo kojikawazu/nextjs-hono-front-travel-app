@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { supabase } from '@/app/lib/supabase/supabase-client';
@@ -18,9 +18,7 @@ interface AuthClientButtonProps {
  * @param session
  * @returns JSX
  */
-const AuthClientButton = ({
-    session
-}: AuthClientButtonProps) => {
+const AuthClientButton = ({ session }: AuthClientButtonProps) => {
     const router = useRouter();
 
     if (!session) {
@@ -29,12 +27,12 @@ const AuthClientButton = ({
 
     const handleSignIn = async () => {
         router.push('/auth/signin');
-    }
+    };
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
         router.refresh();
-    }
+    };
 
     return (
         <>
@@ -45,6 +43,6 @@ const AuthClientButton = ({
             )}
         </>
     );
-}
+};
 
-export default AuthClientButton
+export default AuthClientButton;

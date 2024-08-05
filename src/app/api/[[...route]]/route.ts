@@ -8,11 +8,14 @@ const app = new Hono().basePath('/api');
 
 // CORS設定
 const CORS_ADDRESS = process.env.CORS_ADDRESS as string;
-app.use('*', cors({
-  origin: CORS_ADDRESS,
-  allowMethods: ['GET', 'POST', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+    '*',
+    cors({
+        origin: CORS_ADDRESS,
+        allowMethods: ['GET', 'POST', 'OPTIONS'],
+        allowHeaders: ['Content-Type', 'Authorization'],
+    })
+);
 
 app.route('/auth', auth);
 
