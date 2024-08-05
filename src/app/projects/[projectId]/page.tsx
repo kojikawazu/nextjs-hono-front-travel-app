@@ -5,18 +5,18 @@ import ProjectServerDetail from '@/app/Components/projects/project-detail/projec
  * @param projectId
  * @returns JSX
  */
-const ProjectDetailPage = ({ 
+const ProjectDetailPage = ({
     params,
-}: { 
-    params: { 
-        projectId: string,
-    } 
+}: {
+    params: {
+        projectId: string;
+    };
 }) => {
     return (
         <div className="flex flex-col h-full bg-green-200 hoge">
-          <ProjectServerDetail projectId={params.projectId} />
+            <ProjectServerDetail projectId={params.projectId} />
         </div>
     );
-}
+};
 
 export default ProjectDetailPage;

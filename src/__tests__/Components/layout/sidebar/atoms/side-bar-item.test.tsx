@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen, cleanup  } from '@testing-library/react';
-import SideBarItem from "@/app/Components/layout/sidebar/atoms/side-bar-item";
+import { render, screen, cleanup } from '@testing-library/react';
+import SideBarItem from '@/app/Components/layout/sidebar/atoms/side-bar-item';
 
 describe('SideBarItem', () => {
-
     beforeAll(() => {
         jest.clearAllMocks();
     });
@@ -24,7 +23,7 @@ describe('SideBarItem', () => {
     });
 
     test('renders without label', () => {
-        render(<SideBarItem label='' />);
+        render(<SideBarItem label="" />);
         const liElement = screen.getByRole('listitem');
         expect(liElement).not.toBeNull();
         expect(liElement.textContent).toBe('');
@@ -43,9 +42,9 @@ describe('SideBarItem', () => {
         render(<SideBarItem label={labelText} />);
         const liElement = screen.getByText(labelText);
         console.log(liElement.outerHTML);
-        
+
         const classes = ['p-2', 'border-b', 'border-blue-400'];
-        classes.forEach(cls => {         
+        classes.forEach((cls) => {
             expect(liElement.classList.contains(cls)).toBe(true);
         });
     });

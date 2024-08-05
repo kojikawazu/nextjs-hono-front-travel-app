@@ -7,10 +7,10 @@ import ProjectMain from '@/app/Components/projects/project-main/project-main';
  */
 const ProjectServerMain = async () => {
     const supabase = supabaseServer();
-    const { data: {user} } = await supabase.auth.getUser();
-    return (
-        <ProjectMain userId={user?.id} />
-    );
-}
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+    return <ProjectMain userId={user?.id} />;
+};
 
 export default ProjectServerMain;

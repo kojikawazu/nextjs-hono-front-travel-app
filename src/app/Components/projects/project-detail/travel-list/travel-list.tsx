@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Travel } from "@prisma/client";
-import TravelCard from "@/app/Components/projects/project-detail/travel-list/molecules/travel-card";
+import React, { useEffect, useState } from 'react';
+import { Travel } from '@prisma/client';
+import TravelCard from '@/app/Components/projects/project-detail/travel-list/molecules/travel-card';
 
 interface TravelListProps {
     travelDefaultList: Travel[];
     handleUpdateModalOpen: (travel: Travel) => void;
     handleDeleteModalOpen: (travel: Travel) => void;
-};
+}
 
 /**
  * 旅行リスト
@@ -29,8 +29,8 @@ const TravelList = ({
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {travelList.map((travel) => (
-                <TravelCard 
-                    key={travel.id} 
+                <TravelCard
+                    key={travel.id}
                     travel={travel}
                     handleUpdateModalOpen={handleUpdateModalOpen}
                     handleDeleteModalOpen={handleDeleteModalOpen}
@@ -38,6 +38,6 @@ const TravelList = ({
             ))}
         </div>
     );
-}
+};
 
 export default TravelList;

@@ -1,5 +1,5 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers"
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
 /**
  * サーバーコンポーネント用supabase
@@ -8,4 +8,4 @@ import { cookies } from "next/headers"
 export const supabaseServer = () => {
     cookies().getAll();
     return createServerComponentClient({ cookies });
-}
+};

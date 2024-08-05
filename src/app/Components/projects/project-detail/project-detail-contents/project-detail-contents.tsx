@@ -4,7 +4,7 @@ import ProjectDetailLoading from '@/app/Components/projects/project-detail/proje
 interface ProjectDetailContentProps {
     isLoading: boolean;
     description: string;
-};
+}
 
 /**
  * プロジェクト詳細コンテンツ
@@ -19,7 +19,7 @@ const ProjectDetailContent = ({
     return (
         <div className="h-full">
             {isLoading ? (
-                <ProjectDetailLoading label={"Loading..."} />
+                <ProjectDetailLoading label={'Loading...'} />
             ) : (
                 <div className="p-6">
                     <div className="text-sm text-gray-400">{description}</div>
@@ -27,6 +27,6 @@ const ProjectDetailContent = ({
             )}
         </div>
     );
-}
+};
 
 export default ProjectDetailContent;

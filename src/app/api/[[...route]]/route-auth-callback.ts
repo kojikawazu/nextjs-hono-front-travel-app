@@ -10,7 +10,7 @@ const auth = new Hono();
  */
 auth.get('/callback', async (c) => {
     const requestURL = new URL(c.req.url);
-    const code = requestURL.searchParams.get("code");
+    const code = requestURL.searchParams.get('code');
 
     console.log('Callback received.');
 
@@ -19,12 +19,16 @@ auth.get('/callback', async (c) => {
             console.log('supabaseRouteHandleClient before.');
             const supabase = supabaseRouteHandleClient();
             console.log('exchangeCodeForSession before.');
-            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+            const { data, error } =
+                await supabase.auth.exchangeCodeForSession(code);
             console.log('exchangeCodeForSession after:', { data, error });
 
             if (error) {
                 console.error('Error exchanging code for session:', error);
-                return c.json({ message: 'Failed to exchange code for session' }, { status: 500 });
+                return c.json(
+                    { message: 'Failed to exchange code for session' },
+                    { status: 500 }
+                );
             }
 
             const user = data?.user;
@@ -34,7 +38,10 @@ auth.get('/callback', async (c) => {
                 const supabaseUserId = user.id;
 
                 console.log('Prisma Client before user check prisma:', prisma);
-                console.log('Prisma Client before user check supabaseUserId:', supabaseUserId);
+                console.log(
+                    'Prisma Client before user check supabaseUserId:',
+                    supabaseUserId
+                );
 
                 // データベースにユーザーが存在するか確認
                 const existingUser = await prisma.user.findFirst({
@@ -50,7 +57,7 @@ auth.get('/callback', async (c) => {
                     await prisma.user.create({
                         data: {
                             id: supabaseUserId,
-                            email: user.email ? user.email : "",
+                            email: user.email ? user.email : '',
                             fullName: user.user_metadata.full_name,
                             avatarUrl: user.user_metadata.avatar_url,
                         },
@@ -62,7 +69,10 @@ auth.get('/callback', async (c) => {
             return c.redirect(requestURL.origin);
         } catch (err) {
             console.error('Unexpected error:', err);
-            return c.json({ message: 'Internal server error', error: err }, { status: 500 });
+            return c.json(
+                { message: 'Internal server error', error: err },
+                { status: 500 }
+            );
         }
     } else {
         return c.json({ message: 'Code not privider' }, { status: 400 });

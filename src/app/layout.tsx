@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import ClientHeader from "@/app/Components/header/ClientHeader";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import ClientHeader from '@/app/Components/header/ClientHeader';
 
-import "./globals.css";
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Travel Web App",
-  description: "Travel Web App",
+    title: 'Travel Web App',
+    description: 'Travel Web App',
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="ja">
-      <body className={inter.className}>
-        <ClientHeader />
-        {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="ja">
+            <body className={inter.className}>
+                <ClientHeader />
+                {children}
+            </body>
+        </html>
+    );
 }

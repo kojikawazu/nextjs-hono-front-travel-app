@@ -1,6 +1,6 @@
-import { Database } from "@/type/database.types";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers"
+import { Database } from '@/type/database.types';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
 /**
  * Supabase(API用)
@@ -9,4 +9,4 @@ import { cookies } from "next/headers"
 export const supabaseRouteHandleClient = () => {
     cookies().getAll();
     return createRouteHandlerClient<Database>({ cookies });
-}
+};

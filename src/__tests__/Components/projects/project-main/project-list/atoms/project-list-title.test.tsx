@@ -3,7 +3,6 @@ import { render, screen, cleanup } from '@testing-library/react';
 import ProjectListTitle from '@/app/Components/projects/project-main/project-list/atoms/project-list-title';
 
 describe('ProjectListTitle', () => {
-
     beforeAll(() => {
         jest.clearAllMocks();
     });

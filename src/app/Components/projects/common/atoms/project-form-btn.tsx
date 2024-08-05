@@ -5,7 +5,7 @@ interface ProjectFormBtnProps {
     label: string;
     type: 'submit' | 'button';
     className: string;
-};
+}
 
 /**
  * プロジェクト用のフォームボタン
@@ -14,19 +14,12 @@ interface ProjectFormBtnProps {
  * @param className ボタンのクラス名
  * @returns JSX
  */
-const ProjectFormBtn = ({
-    label,
-    type,
-    className,
-}: ProjectFormBtnProps) => {
+const ProjectFormBtn = ({ label, type, className }: ProjectFormBtnProps) => {
     return (
-        <Button
-            type={type}
-            className={className}
-        >
+        <Button type={type} className={className}>
             {label}
         </Button>
     );
-}
+};
 
 export default ProjectFormBtn;

@@ -4,17 +4,23 @@ import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import * as z from 'zod';
 import { Form } from '@/components/ui/form';
-import { projectCreateSchema } from "@/app/schema/project-create-schema";
+import { projectCreateSchema } from '@/app/schema/project-create-schema';
 import ProjectFormInput from '@/app/Components/projects/common/atoms/project-form-input';
 import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 
 interface ProjectCreateFormProps {
-    form: UseFormReturn<{
-        name: string;
-        description: string;
-    }, any, undefined>,
-    onCreateSubmit: (values: z.infer<typeof projectCreateSchema>) => Promise<void>,
-};
+    form: UseFormReturn<
+        {
+            name: string;
+            description: string;
+        },
+        any,
+        undefined
+    >;
+    onCreateSubmit: (
+        values: z.infer<typeof projectCreateSchema>
+    ) => Promise<void>;
+}
 
 /**
  * プロジェクト生成フォーム
@@ -25,7 +31,7 @@ interface ProjectCreateFormProps {
 const ProjectCreateForm = ({
     form,
     onCreateSubmit,
-}: ProjectCreateFormProps) => {    
+}: ProjectCreateFormProps) => {
     return (
         <div>
             <Form {...form}>
@@ -46,7 +52,7 @@ const ProjectCreateForm = ({
                         className="mb-4"
                     />
 
-                    <ProjectFormBtn 
+                    <ProjectFormBtn
                         label="プロジェクト作成"
                         type="submit"
                         className=""
@@ -55,6 +61,6 @@ const ProjectCreateForm = ({
             </Form>
         </div>
     );
-}
+};
 
 export default ProjectCreateForm;

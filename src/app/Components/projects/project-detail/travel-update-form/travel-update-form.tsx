@@ -10,7 +10,9 @@ import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-
 
 interface TravelUpdateFormProps {
     formUpdate: UseFormReturn<z.infer<typeof travelUpdateSchema>>;
-    onUpdateSubmit: (values: z.infer<typeof travelUpdateSchema>) => Promise<void>;
+    onUpdateSubmit: (
+        values: z.infer<typeof travelUpdateSchema>
+    ) => Promise<void>;
     travel: {
         name: string;
         description: string;
@@ -19,23 +21,22 @@ interface TravelUpdateFormProps {
         category: string;
         travelId: string;
     };
-};
+}
 
 Modal.setAppElement('body');
 
 /**
-  * 旅行更新フォーム
-  * @param formUpdate
-  * @param onUpdateSubmit
-  * @param travel
-  * @returns JSX
-  */
+ * 旅行更新フォーム
+ * @param formUpdate
+ * @param onUpdateSubmit
+ * @param travel
+ * @returns JSX
+ */
 const TravelUpdateForm = ({
     formUpdate,
     onUpdateSubmit,
     travel,
 }: TravelUpdateFormProps) => {
-
     useEffect(() => {
         formUpdate.reset(travel);
     }, []);
@@ -94,6 +95,6 @@ const TravelUpdateForm = ({
             </Form>
         </div>
     );
-}
+};
 
 export default TravelUpdateForm;

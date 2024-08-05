@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { Travel } from "@prisma/client";
-import CONSTANTS from "@/app/utils/common-constants";
+import { useState, useEffect } from 'react';
+import { Travel } from '@prisma/client';
+import CONSTANTS from '@/app/utils/common-constants';
 
 interface useTravelListProps {
     userId: string | undefined;
     projectId: string | undefined;
-};
+}
 
 /**
  * 旅行リストのカスタムhooks
@@ -13,12 +13,9 @@ interface useTravelListProps {
  * @param projectId
  * @returns 旅行リストのカスタムhooks
  */
-export const useTravelList = ({
-    userId,
-    projectId,
-}: useTravelListProps) => {
+export const useTravelList = ({ userId, projectId }: useTravelListProps) => {
     const [travelList, setTravelList] = useState<Travel[]>([]);
-    const [isLoading, setIsLoading]   = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchTravels = async () => {
@@ -26,7 +23,9 @@ export const useTravelList = ({
 
             try {
                 console.log(`[useTravelList] fetch start.`);
-                const res = await fetch(`${CONSTANTS.TRAVEL_DATAS_URL}/${userId}/${projectId}`);
+                const res = await fetch(
+                    `${CONSTANTS.TRAVEL_DATAS_URL}/${userId}/${projectId}`
+                );
                 console.log(`[useTravelList] fetch end. res.ok? : ${res.ok}`);
 
                 if (res.ok) {
@@ -39,7 +38,7 @@ export const useTravelList = ({
                 setIsLoading(false);
                 console.error(err);
             }
-        }
+        };
 
         fetchTravels();
     }, [userId, projectId]);

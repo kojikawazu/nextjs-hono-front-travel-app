@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, cleanup  } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 
 describe('ProjectTitle', () => {
@@ -40,7 +40,7 @@ describe('ProjectTitle', () => {
 
         // クラスリストを手動で確認
         const classes = ['text-3xl', 'font-bold', 'text-center', 'p-4'];
-        classes.forEach(cls => {
+        classes.forEach((cls) => {
             expect(titleElement.classList.contains(cls)).toBe(true);
         });
     });

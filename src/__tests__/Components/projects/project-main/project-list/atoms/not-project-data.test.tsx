@@ -3,7 +3,6 @@ import { render, screen, cleanup } from '@testing-library/react';
 import NotProjectData from '@/app/Components/projects/project-main/project-list/atoms/not-project-data';
 
 describe('NotProjectData', () => {
-
     afterEach(() => {
         cleanup();
     });
@@ -17,7 +16,9 @@ describe('NotProjectData', () => {
 
     test('wrapper div has the correct classes', () => {
         render(<NotProjectData />);
-        const wrapperDiv = document.querySelector('.flex-grow.flex.justify-center.items-center.text-gray-500');
+        const wrapperDiv = document.querySelector(
+            '.flex-grow.flex.justify-center.items-center.text-gray-500'
+        );
         expect(wrapperDiv).not.toBeNull();
     });
 });

@@ -16,6 +16,9 @@ describe('LoadingProject', () => {
     test('displays the loading spinner with correct classes', () => {
         const { container } = render(<LoadingProject />);
         const spinner = container.querySelector('.animate-spin');
-        expect(spinner).toHaveProperty('className', 'animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900');
+        expect(spinner).toHaveProperty(
+            'className',
+            'animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900'
+        );
     });
 });
