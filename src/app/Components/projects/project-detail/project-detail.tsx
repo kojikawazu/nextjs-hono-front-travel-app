@@ -1,17 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import CONSTANTS from "@/app/utils/common-constants";
 import { Travel } from "@prisma/client";
+import Modal from 'react-modal';
+
 import { useProjectDetail } from '@/app/hooks/projects/useProjectDetail';
-import { useTravelForm } from '@/app/hooks/money/useTravelForm';
-import { useTravelTotal } from '@/app/hooks/money/useTravelTotal';
+import { useTravelForm } from '@/app/hooks/travels/useTravelForm';
+import { useTravelTotal } from '@/app/hooks/travels/useTravelTotal';
+
+import ProjectModal from '@/app/Components/projects/common/atoms/project-modal';
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import ProjectDetailContent from '@/app/Components/projects/project-detail/project-detail-contents/project-detail-contents';
 import TravelCreateForm from '@/app/Components/projects/project-detail/travel-create-form/travel-create-form';
+import TravelUpdateForm from '@/app/Components/projects/project-detail/travel-update-form/travel-update-form';
 import TravelList from '@/app/Components/projects/project-detail/travel-list/travel-list';
-import TravelTotal from './travel-total/travel-total';
+import TravelTotal from '@/app/Components/projects/project-detail/travel-total/travel-total';
 
 interface ProjectDetailProps {
     projectId: string;
@@ -46,9 +51,20 @@ const ProjectDetail = ({
 
     const {
         travelList,
+        isUpdateModalOpen,
+        currentUpdateTravel,
+        isDeleteModalOpen,
+        currentDeleteTravel,
         form,
+        formUpdate,
         onCreateSubmit,
+        onUpdateSubmit,
         onDelete,
+        handleUpdateModalOpen,
+        handleUpdateModalClose,
+        handleDeleteModalOpen,
+        handleDeleteModalClose,
+        mapTravelToFormValues,
     } = useTravelForm({
         userId: userId,
         projectId: projectId,
@@ -86,7 +102,8 @@ const ProjectDetail = ({
                     <div className="flex-grow bg-white rounded-lg shadow p-3">
                         <TravelList 
                             travelDefaultList={travelList}
-                            onDelete={onDelete}
+                            handleUpdateModalOpen={handleUpdateModalOpen}
+                            handleDeleteModalOpen={handleDeleteModalOpen}
                         />
                     </div>
                 </div>
@@ -97,6 +114,33 @@ const ProjectDetail = ({
                     total={totalAmount}
                 />
             </div>
+
+            <Modal
+                isOpen={isUpdateModalOpen}
+                onRequestClose={handleUpdateModalClose}
+                contentLabel={"テスト"}
+                className="bg-white p-4 rounded-lg shadow-lg max-w-md mx-auto my-32"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+                {currentUpdateTravel && (
+                    <TravelUpdateForm
+                        formUpdate={formUpdate}
+                        onUpdateSubmit={onUpdateSubmit}
+                        travel={mapTravelToFormValues(currentUpdateTravel)}
+                    />
+                )}
+            </Modal>
+
+            <ProjectModal 
+                modalIsOpen={isDeleteModalOpen} 
+                closeModal={handleDeleteModalClose}
+                currentTravel={currentDeleteTravel}
+                handleExecute={onDelete} 
+                contentLabel="削除確認" 
+                confirmText="この旅行を削除してもよろしいですか？" 
+                cancelText="キャンセル" 
+                okText="削除"
+            />
         </div>
     );
 }

@@ -17,58 +17,57 @@ describe('TravelCard', () => {
         categoryId: "category1",
     };
 
-    const onDeleteMock = jest.fn().mockResolvedValue(undefined);
+    const handleDeleteModalOpenMock = jest.fn().mockResolvedValue(undefined);
+    const handleUpdateModalOpenMock = jest.fn().mockResolvedValue(undefined);
 
     afterEach(() => {
         cleanup();
-        onDeleteMock.mockClear();
+        handleDeleteModalOpenMock.mockClear();
+        handleUpdateModalOpenMock.mockClear();
     });
 
     test("should render travel name", () => {
-        render(<TravelCard travel={travel} onDelete={onDeleteMock} />);
+        render(<TravelCard travel={travel} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         expect(screen.queryByText(travel.name)).toBeInTheDocument();
     });
 
     test("should render travel description", () => {
-        render(<TravelCard travel={travel} onDelete={onDeleteMock} />);
+        render(<TravelCard travel={travel} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         expect(screen.queryByText(travel.description as string)).toBeInTheDocument();
     });
 
     test("should render travel amount", () => {
-        render(<TravelCard travel={travel} onDelete={onDeleteMock} />);
+        render(<TravelCard travel={travel} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         expect(screen.queryByText(`金額: ${travel.amount}円`)).toBeInTheDocument();
     });
 
     test("should render 'No description' when description is null", () => {
         const travelWithNullDescription: Travel = { ...travel, description: null };
-        render(<TravelCard travel={travelWithNullDescription} onDelete={onDeleteMock} />);
+        render(<TravelCard travel={travelWithNullDescription} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         expect(screen.queryByText("No description")).toBeInTheDocument();
     });
 
     test("should render '0円' when amount is null", () => {
         const travelWithNullAmount: Travel = { ...travel, amount: null };
-        render(<TravelCard travel={travelWithNullAmount} onDelete={onDeleteMock} />);
+        render(<TravelCard travel={travelWithNullAmount} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         expect(screen.queryByText("金額: 0円")).toBeInTheDocument();
     });
 
-    test("should open modal when delete button is clicked", () => {
-        render(<TravelCard travel={travel} onDelete={onDeleteMock} />);
+    test("should call handleDeleteModalOpen when delete button is clicked", () => {
+        render(<TravelCard travel={travel} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         
         const deleteButton = screen.getByLabelText(`delete-${travel.id}`);
         fireEvent.click(deleteButton);
         
-        expect(screen.queryByText("この旅行を削除してもよろしいですか？")).toBeInTheDocument();
+        expect(handleDeleteModalOpenMock).toHaveBeenCalledWith(travel);
     });
 
-    test("should call onDelete when confirm button in modal is clicked", async () => {
-        render(<TravelCard travel={travel} onDelete={onDeleteMock} />);
+    test("should call handleUpdateModalOpen when edit button is clicked", () => {
+        render(<TravelCard travel={travel} handleDeleteModalOpen={handleDeleteModalOpenMock} handleUpdateModalOpen={handleUpdateModalOpenMock} />);
         
-        const deleteButton = screen.getByLabelText(`delete-${travel.id}`);
-        fireEvent.click(deleteButton);
-
-        const confirmButton = screen.getByText("削除");
-        fireEvent.click(confirmButton);
-
-        expect(onDeleteMock).toHaveBeenCalledWith(travel.id);
+        const editButton = screen.getByLabelText(`update-${travel.id}`);
+        fireEvent.click(editButton);
+        
+        expect(handleUpdateModalOpenMock).toHaveBeenCalledWith(travel);
     });
 });

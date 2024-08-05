@@ -2,11 +2,11 @@ import React from 'react';
 import * as z from 'zod';
 import { Form } from '@/components/ui/form';
 import { UseFormReturn } from 'react-hook-form';
-import { travelCreateSchema } from '@/app/schema/travel-create-schema';
+import { travelCreateSchema } from '@/app/schema/travel-schema';
 import ProjectFormInput from '@/app/Components/projects/common/atoms/project-form-input';
 import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 
-interface MoneyCreateFormProps {
+interface TravelCreateFormProps {
   form: UseFormReturn<z.infer<typeof travelCreateSchema>>;
   onCreateSubmit: (values: z.infer<typeof travelCreateSchema>) => Promise<void>;
 };
@@ -20,7 +20,7 @@ interface MoneyCreateFormProps {
 const TravelCreateForm = ({
   form,
   onCreateSubmit,
-}: MoneyCreateFormProps) => {
+}: TravelCreateFormProps) => {
   return (
     <div>
       <Form {...form}>
