@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import CONSTANTS from '@/app/utils/common-constants';
 import { Travel } from '@prisma/client';

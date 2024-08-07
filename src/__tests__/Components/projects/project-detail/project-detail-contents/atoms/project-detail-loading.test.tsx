@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import ProjectDetailLoading from '@/app/Components/projects/project-detail/project-detail-contents/atoms/project-detail-loading';

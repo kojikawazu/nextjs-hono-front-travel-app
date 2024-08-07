@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import SideBarItem from '@/app/Components/layout/sidebar/atoms/side-bar-item';

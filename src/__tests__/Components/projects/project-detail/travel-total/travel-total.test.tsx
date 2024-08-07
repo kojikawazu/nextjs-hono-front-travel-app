@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import TravelTotal from '@/app/Components/projects/project-detail/travel-total/travel-total';

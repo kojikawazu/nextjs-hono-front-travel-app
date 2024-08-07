@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react';
 import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import {
@@ -97,11 +98,7 @@ describe('ProjectFormInput', () => {
 
     test('displays error message when validation fails', async () => {
         const TestComponentWithError = () => {
-            const {
-                control,
-                formState: { errors },
-                setError,
-            } = useForm();
+            const { control, setError } = useForm();
             useEffect(() => {
                 setError('projectName', {
                     type: 'manual',

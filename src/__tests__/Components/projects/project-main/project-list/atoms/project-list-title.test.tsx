@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import ProjectListTitle from '@/app/Components/projects/project-main/project-list/atoms/project-list-title';
