@@ -2,11 +2,10 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import CONSTANTS from '@/app/utils/common-constants';
-import { Travel } from '@prisma/client';
 import Modal from 'react-modal';
+import CONSTANTS from '@/app/utils/common-constants';
+import { Project, Travel } from '@prisma/client';
 
-import { useProjectDetail } from '@/app/hooks/projects/useProjectDetail';
 import { useTravelForm } from '@/app/hooks/travels/useTravelForm';
 import { useTravelTotal } from '@/app/hooks/travels/useTravelTotal';
 
@@ -22,6 +21,7 @@ interface ProjectDetailProps {
     projectId: string;
     userId: string | undefined;
     travelSCList: Travel[];
+    SCProject: Project;
 }
 
 /**
@@ -29,22 +29,20 @@ interface ProjectDetailProps {
  * @param projectId
  * @param userId
  * @param travelSCList
+ * @param SCProject
  * @returns JSX
  */
 const ProjectDetail = ({
     projectId,
     userId,
     travelSCList,
+    SCProject,
 }: ProjectDetailProps) => {
     const router = useRouter();
 
     if (userId === undefined) {
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
-
-    const { project, isLoading } = useProjectDetail({
-        projectId: projectId,
-    });
 
     const {
         travelList,
@@ -75,16 +73,15 @@ const ProjectDetail = ({
     return (
         <div className="flex flex-col h-[90%] overflow-hidden">
             <div className="p-2 border border-pink-200">
-                <ProjectTitle title={project?.name ?? 'Non Title'} />
+                <ProjectTitle title={SCProject?.name ?? 'Non Title'} />
             </div>
 
             <div className="flex-1 overflow-y-auto">
                 <div className="flex flex-col p-4 space-y-4">
                     <div className="flex-grow bg-white rounded-lg shadow p-3">
                         <ProjectDetailContent
-                            isLoading={isLoading}
                             description={
-                                project?.description ?? 'Non Description'
+                                SCProject?.description ?? 'Non Description'
                             }
                         />
                     </div>
