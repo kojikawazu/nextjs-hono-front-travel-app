@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import NotProjectData from '@/app/Components/projects/project-main/project-list/atoms/not-project-data';
