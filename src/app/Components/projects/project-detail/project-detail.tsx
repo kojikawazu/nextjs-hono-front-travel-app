@@ -69,7 +69,7 @@ const ProjectDetail = ({
     });
 
     const { totalAmount } = useTravelTotal({
-        travelDefaultList: travelSCList,
+        travelDefaultList: travelList,
     });
 
     return (
