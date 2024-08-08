@@ -1,5 +1,3 @@
-
-
 # Bunをインストールする
 
 ```bash
@@ -57,6 +55,35 @@ bunx prisma generate
 bun add react-hook-form zod @hookform/resolvers react-modal
 ```
 
+# Prettierの導入
+
+```bash
+bun add -D prettier
+```
+
+```json:package.json
+"scripts": {
+    "lint": "eslint .",
+},
+```
+
+※ prettierrc を追加すること
+
+# ESLintの導入
+
+```bash
+bun add -D eslint
+bun add -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-import eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser
+```
+
+```json:package.json
+"scripts": {
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+},
+```
+
+※ eslint.config.mjs を追加すること
+
 # テスト導入
 
 ```bash
@@ -72,6 +99,34 @@ npm i --save-dev jest @testing-library/react @testing-library/jest-dom @testing-
 npm i --save-dev ts-node
 ```
 
+```json:package.json
+"scripts": {
+    "test": "npx jest --verbose",
+},
+```
+
+# E2Eの導入
+
+```bash
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install -y libwoff1 libvpx7 libevent-2.1-7 libopus0 libwebpdemux2 libharfbuzz-icu0 libenchant-2-2 libsecret-1-0 libhyphen0 libmanette-0.2-0 libflite1 libgles2
+sudo apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav
+sudo apt-get install -y libenchant1c2a libgtk-3-0 libgbm1 libnotify4 libnss3 libxss1 libasound2 libxtst6 xdg-utils
+
+# Playwrightのインストール
+bun add -d @playwright/test
+# Playwrightが使用するブラウザがインストール
+bunx playwright install
+```
+
+```json:package.json
+"scripts": {
+    "test:e2e": "bun playwright test"
+},
+```
+
+※ playwright.config.ts を追加すること
 
 # その他のインストール
 
