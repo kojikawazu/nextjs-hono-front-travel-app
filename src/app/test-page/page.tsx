@@ -11,7 +11,7 @@ const TestPage = () => {
         fetch(url).then((res) => res.text())
     );
 
-    return <div>{text ? text : 'none'}</div>;
+    return <div data-testid="api-text">{text ? text : 'none'}</div>;
 };
 
 export default TestPage;
