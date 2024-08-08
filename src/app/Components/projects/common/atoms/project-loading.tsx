@@ -1,15 +1,15 @@
 import React from 'react';
 
-interface ProjectDetailLoadingProps {
+interface ProjectLoadingProps {
     label: string;
 }
 
 /**
- * プロジェクト詳細ローディング
+ * プロジェクトローディング
  * @param label
  * @returns JSX
  */
-const ProjectDetailLoading = ({ label }: ProjectDetailLoadingProps) => {
+const ProjectLoading = ({ label }: ProjectLoadingProps) => {
     return (
         <div className="flex items-center justify-center h-full">
             <div className="text-2xl font-bold text-gray-400">{label}</div>
@@ -17,4 +17,4 @@ const ProjectDetailLoading = ({ label }: ProjectDetailLoadingProps) => {
     );
 };
 
-export default ProjectDetailLoading;
+export default ProjectLoading;

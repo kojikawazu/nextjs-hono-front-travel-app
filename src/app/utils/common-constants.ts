@@ -8,6 +8,8 @@ const CONSTANTS = {
 
     /** ${BACKEND_URL}/projects */
     PROJECT_DATAS_URL: `${CC_BACKEND_URL}/projects`,
+    SC_PROJECT_DATAS_URL: `${SC_BACKEND_URL}/projects`,
+
     /** ${BACKEND_URL}/project/user/:userId */
     GET_PROJECT_DATAS_BY_USER_ID_URL: `${CC_BACKEND_URL}/projects/user`,
     /** ${BACKEND_URL}/project/:projectId */

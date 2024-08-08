@@ -11,7 +11,7 @@ describe('ProjectDetailContent', () => {
     test('renders the project detail label', () => {
         const desc = 'My Project';
 
-        render(<ProjectDetailContent description={desc} isLoading={false} />);
+        render(<ProjectDetailContent description={desc} />);
 
         const labelElement = screen.getByText(desc);
 
@@ -23,7 +23,7 @@ describe('ProjectDetailContent', () => {
     test('renders the project detail label empty', () => {
         const desc = '';
 
-        render(<ProjectDetailContent description={desc} isLoading={false} />);
+        render(<ProjectDetailContent description={desc} />);
 
         const labelElement = screen.getByText((content, element) => {
             return (
@@ -39,16 +39,5 @@ describe('ProjectDetailContent', () => {
             expect(labelElement.tagName.toLowerCase()).toBe('div');
             expect(labelElement.className).toContain('text-gray-400');
         }
-    });
-
-    test('renders the project loading', () => {
-        const loadingLabel = 'Loading...';
-
-        render(<ProjectDetailContent description={''} isLoading={true} />);
-
-        const labelElement = screen.getByText(loadingLabel);
-
-        expect(labelElement).not.toBeNull();
-        expect(labelElement?.tagName.toLowerCase()).toBe('div');
     });
 });
