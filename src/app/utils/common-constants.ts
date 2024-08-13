@@ -12,6 +12,7 @@ const CONSTANTS = {
 
     /** ${BACKEND_URL}/project/user/:userId */
     GET_PROJECT_DATAS_BY_USER_ID_URL: `${CC_BACKEND_URL}/projects/user`,
+    SC_GET_PROJECT_DATAS_BY_USER_ID_URL: `${SC_BACKEND_URL}/projects/user`,
     /** ${BACKEND_URL}/project/:projectId */
     GET_PROJECT_DATAS_BY_PROJECT_ID_URL: `${CC_BACKEND_URL}/projects`,
 

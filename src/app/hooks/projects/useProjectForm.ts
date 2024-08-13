@@ -1,49 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Project } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import CONSTANTS from '@/app/utils/common-constants';
 import { projectCreateSchema } from '@/app/schema/project-create-schema';
 
 interface useProjectFormProps {
     userId: string | undefined;
+    projectSCList: Project[];
 }
 
 /**
  * プロジェクトのカスタムhooks
  * @param userId
+ * @param projectSCList
  * @returns カスタムhooks
  */
-export const useProjectForm = ({ userId }: useProjectFormProps) => {
-    const [projectList, setProjectList] = useState<Project[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            setIsLoading(true);
-
-            try {
-                console.log(`[useProjectForm] fetch start.`);
-                const res = await fetch(
-                    `${CONSTANTS.GET_PROJECT_DATAS_BY_USER_ID_URL}/${userId}`
-                );
-                console.log(`[useProjectForm] fetch end. res.ok? : ${res.ok}`);
-
-                if (res.ok) {
-                    const projects = await res.json();
-                    setProjectList(projects);
-                }
-
-                setIsLoading(false);
-            } catch (err) {
-                setIsLoading(false);
-                console.error(err);
-            }
-        };
-
-        fetchProjects();
-    }, [userId]);
+export const useProjectForm = ({
+    userId,
+    projectSCList,
+}: useProjectFormProps) => {
+    const [projectList, setProjectList] = useState<Project[]>(projectSCList);
 
     const form = useForm<z.infer<typeof projectCreateSchema>>({
         resolver: zodResolver(projectCreateSchema),
@@ -89,7 +68,6 @@ export const useProjectForm = ({ userId }: useProjectFormProps) => {
 
     return {
         projectList,
-        isLoading,
         form,
         onCreateSubmit,
     };
