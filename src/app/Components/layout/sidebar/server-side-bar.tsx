@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Project } from '@prisma/client';
 
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
 import CONSTANTS from '@/app/utils/common-constants';
 
+import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
 
 /**
@@ -22,9 +23,9 @@ const ServerSideBar = async () => {
     const projectSCList: Project[] = await resGetProjectList.json();
 
     return (
-        <>
+        <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <SideBar projectSCList={projectSCList} />
-        </>
+        </Suspense>
     );
 };
 

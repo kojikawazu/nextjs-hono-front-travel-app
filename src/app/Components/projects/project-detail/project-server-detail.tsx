@@ -4,7 +4,7 @@ import CONSTANTS from '@/app/utils/common-constants';
 import { Project, Travel } from '@prisma/client';
 
 import ProjectDetail from '@/app/Components/projects/project-detail/project-detail';
-import ProjectLoadingProps from '@/app/Components/projects/common/atoms/project-loading';
+import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 
 interface ProjectServerDetailProps {
     projectId: string;
@@ -31,7 +31,7 @@ const ProjectServerDetail = async ({ projectId }: ProjectServerDetailProps) => {
     const SCProject: Project = await resGetProject.json();
 
     return (
-        <Suspense fallback={<ProjectLoadingProps label={'Loading...'} />}>
+        <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <ProjectDetail
                 projectId={projectId}
                 userId={user?.id}

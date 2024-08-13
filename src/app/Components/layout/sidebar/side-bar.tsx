@@ -24,8 +24,8 @@ const SideBar = ({ projectSCList }: SideBarProps) => {
                     {projectSCList.map((project) => (
                         <Link href={`/projects/${project.id}`} key={project.id}>
                             <SideBarItem
-                                key={project.id}
                                 label={project.name}
+                                className="ml-2"
                             />
                         </Link>
                     ))}

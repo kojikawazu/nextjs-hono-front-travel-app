@@ -49,4 +49,21 @@ describe('SideBarItem', () => {
             expect(liElement.classList.contains(cls)).toBe(true);
         });
     });
+
+    test('applies additional className correctly', () => {
+        const labelText = 'My Label';
+        const additionalClass = 'extra-class';
+
+        render(<SideBarItem label={labelText} className={additionalClass} />);
+        const liElement = screen.getByText(labelText);
+
+        // 元のクラスが存在していることを確認
+        const baseClasses = ['p-2', 'border-b', 'border-blue-400'];
+        baseClasses.forEach((cls) => {
+            expect(liElement.classList.contains(cls)).toBe(true);
+        });
+
+        // 追加されたクラスが存在していることを確認
+        expect(liElement.classList.contains(additionalClass)).toBe(true);
+    });
 });

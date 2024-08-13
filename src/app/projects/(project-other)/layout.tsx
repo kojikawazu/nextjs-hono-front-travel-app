@@ -1,7 +1,12 @@
 import React from 'react';
 import ServerSideBar from '@/app/Components/layout/sidebar/server-side-bar';
 
-export default function ProjectsLayout({
+/**
+ * プロジェクトレイアウト
+ * @param children
+ * @returns JSX
+ */
+export default function ProjectsOtherLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
