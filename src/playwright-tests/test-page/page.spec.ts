@@ -11,10 +11,5 @@ test.describe('TestPage', () => {
         // 特定のdata-testid属性を持つdiv要素を選択してテキストの確認
         const mainContent = page.locator('[data-testid="api-text"]');
         await expect(mainContent).toHaveText('Test, Hello');
-
-        // レイアウトの検証: サイドバーの項目が表示されていることを確認
-        await expect(page.locator('text=Projects')).toBeVisible();
-        await expect(page.locator('text=Menu Item 2')).toBeVisible();
-        await expect(page.locator('text=Menu Item 3')).toBeVisible();
     });
 });

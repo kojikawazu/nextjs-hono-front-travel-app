@@ -24,5 +24,12 @@ module.exports = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1'
     },
-    transformIgnorePatterns: ['<rootDir>/node_modules/'],
+    transformIgnorePatterns: [
+        '<rootDir>/node_modules/', 
+        '<rootDir>/src/playwright-tests/'
+    ],
+    testPathIgnorePatterns: [
+        '<rootDir>/node_modules/', 
+        '<rootDir>/src/playwright-tests/'
+    ],
 };
