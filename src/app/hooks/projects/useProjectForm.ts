@@ -36,31 +36,35 @@ export const useProjectForm = ({
         async (values: z.infer<typeof projectCreateSchema>) => {
             const { name, description } = values;
 
-            try {
-                console.log(`fetch start.`);
-                const res = await fetch(`${CONSTANTS.PROJECT_DATAS_URL}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        description: description,
-                        userId: userId,
-                    }),
-                });
-
-                console.log(`fetch end. res.ok? : ${res.ok}`);
-                if (res.ok) {
-                    const project: Project = await res.json();
-                    setProjectList((prevProjectList) => [
-                        ...prevProjectList,
-                        project,
-                    ]);
-                    form.reset();
+            if (userId) {
+                try {
+                    console.log(`fetch start.`);
+                    const res = await fetch(`${CONSTANTS.PROJECT_DATAS_URL}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            description: description,
+                            userId: userId,
+                        }),
+                    });
+    
+                    console.log(`fetch end. res.ok? : ${res.ok}`);
+                    if (res.ok) {
+                        const project: Project = await res.json();
+                        setProjectList((prevProjectList) => [
+                            ...prevProjectList,
+                            project,
+                        ]);
+                        form.reset();
+                    }
+                } catch (err) {
+                    console.error(err);
                 }
-            } catch (err) {
-                console.error(err);
+            } else {
+                console.error('User ID is null.');
             }
         },
         [userId, form.reset]
