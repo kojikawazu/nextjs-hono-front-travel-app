@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useEffect } from 'react';
@@ -17,8 +18,30 @@ const TestComponent = ({ travelList }: { travelList: Travel[] }) => {
 
 describe('useTravelTotal', () => {
     const mockTravelList: Travel[] = [
-        { id: '1', name: 'Tokyo Trip', description: null, amount: 1000, date: new Date(), createdAt: new Date(), updatedAt: new Date(), userId: 'user1', projectId: 'project1', categoryId: 'category1' },
-        { id: '2', name: 'Kyoto Trip', description: null, amount: 2000, date: new Date(), createdAt: new Date(), updatedAt: new Date(), userId: 'user1', projectId: 'project1', categoryId: 'category1' },
+        {
+            id: '1',
+            name: 'Tokyo Trip',
+            description: null,
+            amount: 1000,
+            date: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'user1',
+            projectId: 'project1',
+            categoryId: 'category1',
+        },
+        {
+            id: '2',
+            name: 'Kyoto Trip',
+            description: null,
+            amount: 2000,
+            date: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'user1',
+            projectId: 'project1',
+            categoryId: 'category1',
+        },
     ];
 
     test('should calculate the correct total amount', () => {
@@ -27,12 +50,25 @@ describe('useTravelTotal', () => {
     });
 
     test('should update the total amount when travel list changes', () => {
-        const { rerender } = render(<TestComponent travelList={mockTravelList} />);
+        const { rerender } = render(
+            <TestComponent travelList={mockTravelList} />
+        );
         expect(screen.getByText('Total: 3000')).toBeInTheDocument();
 
         const newTravelList: Travel[] = [
             ...mockTravelList,
-            { id: '3', name: 'Osaka Trip', description: null, amount: 1500, date: new Date(), createdAt: new Date(), updatedAt: new Date(), userId: 'user1', projectId: 'project1', categoryId: 'category1' },
+            {
+                id: '3',
+                name: 'Osaka Trip',
+                description: null,
+                amount: 1500,
+                date: new Date(),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                userId: 'user1',
+                projectId: 'project1',
+                categoryId: 'category1',
+            },
         ];
 
         rerender(<TestComponent travelList={newTravelList} />);
