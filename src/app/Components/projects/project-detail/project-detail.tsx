@@ -49,7 +49,6 @@ const ProjectDetail = ({
         isUpdateModalOpen,
         currentUpdateTravel,
         isDeleteModalOpen,
-        currentDeleteTravel,
         form,
         formUpdate,
         onCreateSubmit,
@@ -126,7 +125,6 @@ const ProjectDetail = ({
             <ProjectModal
                 modalIsOpen={isDeleteModalOpen}
                 closeModal={handleDeleteModalClose}
-                currentTravel={currentDeleteTravel}
                 handleExecute={onDelete}
                 contentLabel="削除確認"
                 confirmText="この旅行を削除してもよろしいですか？"
