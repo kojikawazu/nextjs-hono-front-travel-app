@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Modal from 'react-modal';
+
 import CONSTANTS from '@/app/utils/common-constants';
 import { Project, Travel } from '@prisma/client';
 
@@ -16,6 +17,8 @@ import TravelCreateForm from '@/app/Components/projects/project-detail/travel-cr
 import TravelUpdateForm from '@/app/Components/projects/project-detail/travel-update-form/travel-update-form';
 import TravelList from '@/app/Components/projects/project-detail/travel-list/travel-list';
 import TravelTotal from '@/app/Components/projects/project-detail/travel-total/travel-total';
+
+Modal.setAppElement('body');
 
 interface ProjectDetailProps {
     projectId: string;

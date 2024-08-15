@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import * as z from 'zod';
 import { Form } from '@/components/ui/form';
-import Modal from 'react-modal';
 import { UseFormReturn } from 'react-hook-form';
-import { travelUpdateSchema } from '@/app/schema/travel-schema';
 
+import { travelUpdateSchema } from '@/app/schema/travel-schema';
 import ProjectFormInput from '@/app/Components/projects/common/atoms/project-form-input';
 import ProjectFormBtn from '@/app/Components/projects/common/atoms/project-form-btn';
 
@@ -22,8 +21,6 @@ interface TravelUpdateFormProps {
         travelId: string;
     };
 }
-
-Modal.setAppElement('body');
 
 /**
  * 旅行更新フォーム

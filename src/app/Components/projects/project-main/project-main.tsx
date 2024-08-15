@@ -2,21 +2,27 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Project } from '@prisma/client';
+import Modal from 'react-modal';
 
 import CONSTANTS from '@/app/utils/common-constants';
+import { Project } from '@prisma/client';
+
 import { useProjectForm } from '@/app/hooks/projects/useProjectForm';
 
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
 import ProjectCreateForm from '@/app/Components/projects/project-main/project-create/project-create-form';
+import ProjectUpdateForm from '@/app/Components/projects/project-main/project-update/project-update-form';
 import ProjectList from '@/app/Components/projects/project-main/project-list/project-list';
 import ProjectModal from '@/app/Components/projects/common/atoms/project-modal';
+import ProjectModalChild from '@/app/Components/projects/common/atoms/project-modal-child';
 
 interface ProjectMainProps {
     userId: string | undefined;
     projectSCList: Project[];
 }
+
+Modal.setAppElement('body');
 
 /**
  * プロジェクトメイン
@@ -33,13 +39,18 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
 
     const {
         projectList,
+        isUpdateModalOpen,
         selectedDelProjects,
         isDelModalOpen,
         setIsDelModalOpen,
         form,
+        formUpdate,
         onCreateSubmit,
-        handleCheckboxChange,
+        onUpdateSubmit,
         handleDelete,
+        handleUpdateModalOpen,
+        handleUpdateModalClose,
+        handleCheckboxChange,
         confirmDelete,
     } = useProjectForm({
         userId,
@@ -69,6 +80,7 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
                         <div className="h-full overflow-y-auto">
                             <ProjectList
                                 projectList={projectList}
+                                handleUpdateModalOpen={handleUpdateModalOpen}
                                 selectedDelProjects={selectedDelProjects}
                                 handleDelete={handleDelete}
                                 handleCheckboxChange={handleCheckboxChange}
@@ -77,6 +89,17 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
                     </div>
                 </div>
             </div>
+
+            <ProjectModalChild
+                contentLabel={'テスト'}
+                isModalOpen={isUpdateModalOpen}
+                closeModal={handleUpdateModalClose}
+            >
+                <ProjectUpdateForm
+                    formUpdate={formUpdate}
+                    onUpdateSubmit={onUpdateSubmit}
+                />
+            </ProjectModalChild>
 
             <ProjectModal
                 modalIsOpen={isDelModalOpen}

@@ -42,4 +42,18 @@ describe('ProjectEditModalBtn', () => {
         expect(stopPropagationMock).not.toHaveBeenCalled();
         expect(handleOpenMock).toHaveBeenCalledTimes(1);
     });
+
+    test('applies the provided className to the button', () => {
+        const customClassName = 'custom-class';
+        render(
+            <ProjectEditModalBtn
+                id="test-id"
+                className={customClassName}
+                handleOpen={handleOpenMock}
+            />
+        );
+        const button = screen.getByRole('button', { name: /update-test-id/i });
+        expect(button).toHaveClass('custom-class');
+        expect(button).toHaveClass('text-blue-500 hover:text-blue-700');
+    });
 });
