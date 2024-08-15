@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
-import { useRouter } from 'next/router';
 
 import { Project } from '@prisma/client';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';

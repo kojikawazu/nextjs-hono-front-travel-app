@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import { useModal } from '@/app/hooks/common/useModal';
@@ -7,7 +8,9 @@ describe('useModal', () => {
         const { modalIsOpen, openModal, closeModal } = useModal();
         return (
             <div>
-                <span data-testid="modal-status">{modalIsOpen ? 'Open' : 'Closed'}</span>
+                <span data-testid="modal-status">
+                    {modalIsOpen ? 'Open' : 'Closed'}
+                </span>
                 <button onClick={openModal}>Open</button>
                 <button onClick={closeModal}>Close</button>
             </div>
