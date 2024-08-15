@@ -23,6 +23,10 @@ export const useProjectForm = ({
     projectSCList,
 }: useProjectFormProps) => {
     const [projectList, setProjectList] = useState<Project[]>(projectSCList);
+    const [selectedDelProjects, setSelectedDelProjects] = useState<string[]>(
+        []
+    );
+    const [isDelModalOpen, setIsDelModalOpen] = useState(false);
 
     const form = useForm<z.infer<typeof projectCreateSchema>>({
         resolver: zodResolver(projectCreateSchema),
@@ -32,6 +36,9 @@ export const useProjectForm = ({
         },
     });
 
+    /**
+     * プロジェクト作成処理
+     */
     const onCreateSubmit = useCallback(
         async (values: z.infer<typeof projectCreateSchema>) => {
             const { name, description } = values;
@@ -70,9 +77,85 @@ export const useProjectForm = ({
         [userId, form.reset]
     );
 
+    /**
+     * プロジェクト削除処理
+     */
+    const onDeleteSubmit = useCallback(async () => {
+        if (selectedDelProjects.length === 0) {
+            console.error('No selected projects.');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${CONSTANTS.PROJECT_DATAS_URL}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ids: selectedDelProjects,
+                }),
+            });
+
+            if (res.ok) {
+                console.log('Projects deleted successfully');
+                setProjectList((prevProjectList) =>
+                    prevProjectList.filter(
+                        (project) => !selectedDelProjects.includes(project.id)
+                    )
+                );
+                setSelectedDelProjects([]);
+            } else {
+                console.error('Failed to delete projects');
+            }
+        } catch (err) {
+            console.error('Error deleting projects:', err);
+        }
+    }, [selectedDelProjects]);
+
+    /**
+     * チェックボックス選択処理
+     */
+    const handleCheckboxChange = useCallback(
+        (id: string) => {
+            setSelectedDelProjects((prev) => {
+                if (prev.includes(id)) {
+                    return prev.filter((p) => p !== id);
+                }
+                return [...prev, id];
+            });
+        },
+        [setSelectedDelProjects]
+    );
+
+    /**
+     * 削除ボタンクリック処理
+     */
+    const handleDelete = async () => {
+        if (selectedDelProjects.length === 0) {
+            return;
+        }
+        setIsDelModalOpen(true);
+    };
+
+    /**
+     * 削除確認モーダルの削除ボタンクリック処理
+     */
+    const confirmDelete = async () => {
+        onDeleteSubmit();
+        setIsDelModalOpen(false);
+    };
+
     return {
         projectList,
+        selectedDelProjects,
+        isDelModalOpen,
+        setIsDelModalOpen,
         form,
         onCreateSubmit,
+        onDeleteSubmit,
+        handleCheckboxChange,
+        handleDelete,
+        confirmDelete,
     };
 };

@@ -26,7 +26,7 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   userId      String
-  User        User     @relation(fields: [userId], references: [id])
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   Travel      Travel[]
 }
 
@@ -42,8 +42,8 @@ model Travel {
   projectId   String
   categoryId  String
   Category    Category  @relation(fields: [categoryId], references: [id])
-  Project     Project   @relation(fields: [projectId], references: [id])
-  User        User      @relation(fields: [userId], references: [id])
+  Project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Category {

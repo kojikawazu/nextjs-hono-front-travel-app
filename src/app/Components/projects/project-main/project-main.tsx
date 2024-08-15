@@ -11,6 +11,7 @@ import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
 import ProjectCreateForm from '@/app/Components/projects/project-main/project-create/project-create-form';
 import ProjectList from '@/app/Components/projects/project-main/project-list/project-list';
+import ProjectModal from '@/app/Components/projects/common/atoms/project-modal';
 
 interface ProjectMainProps {
     userId: string | undefined;
@@ -30,7 +31,17 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
 
-    const { projectList, form, onCreateSubmit } = useProjectForm({
+    const {
+        projectList,
+        selectedDelProjects,
+        isDelModalOpen,
+        setIsDelModalOpen,
+        form,
+        onCreateSubmit,
+        handleCheckboxChange,
+        handleDelete,
+        confirmDelete,
+    } = useProjectForm({
         userId,
         projectSCList,
     });
@@ -58,12 +69,24 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
                         <div className="h-full overflow-y-auto">
                             <ProjectList
                                 projectList={projectList}
-                                isLoading={false}
+                                selectedDelProjects={selectedDelProjects}
+                                handleDelete={handleDelete}
+                                handleCheckboxChange={handleCheckboxChange}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+
+            <ProjectModal
+                modalIsOpen={isDelModalOpen}
+                closeModal={() => setIsDelModalOpen(false)}
+                handleExecute={confirmDelete}
+                contentLabel="削除確認"
+                confirmText="選択されたプロジェクトを削除してもよろしいですか？"
+                cancelText="キャンセル"
+                okText="削除"
+            />
         </div>
     );
 };
