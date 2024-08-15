@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Travel } from '@prisma/client';
+
 import CONSTANTS from '@/app/utils/common-constants';
 import {
     travelCreateSchema,
@@ -78,7 +79,10 @@ export const useTravelForm = ({
             const { name, description, amount, date, category } = values;
 
             try {
-                console.log(`[useTravelForm] create fetch start.`);
+                console.debug(
+                    '[useTravelForm][onCreateSubmit()] create fetch start.'
+                );
+
                 const res = await fetch(`${CONSTANTS.TRAVEL_DATAS_URL}`, {
                     method: 'POST',
                     headers: {
@@ -94,8 +98,9 @@ export const useTravelForm = ({
                         projectId: projectId,
                     }),
                 });
+
                 console.log(
-                    `[useTravelForm] create fetch end. res.ok? : ${res.ok}`
+                    `[useTravelForm][onCreateSubmit()]  create fetch end. res.ok? : ${res.ok}`
                 );
 
                 if (res.ok) {
@@ -107,7 +112,7 @@ export const useTravelForm = ({
                     form.reset();
                 }
             } catch (err) {
-                console.error(err);
+                console.error('Error creating travel:', err);
             }
         },
         [userId, projectId, form.reset]
@@ -122,7 +127,10 @@ export const useTravelForm = ({
                 values;
 
             try {
-                console.log(`[useTravelForm] update fetch start.`);
+                console.debug(
+                    '[useTravelForm][onUpdateSubmit()] update fetch start.'
+                );
+
                 const res = await fetch(
                     `${CONSTANTS.TRAVEL_DATAS_URL}/${travelId}`,
                     {
@@ -139,8 +147,9 @@ export const useTravelForm = ({
                         }),
                     }
                 );
-                console.log(
-                    `[useTravelForm] update fetch end. res.ok? : ${res.ok}`
+
+                console.debug(
+                    `[useTravelForm][onUpdateSubmit()] update fetch end. res.ok? : ${res.ok}`
                 );
 
                 if (res.ok) {
@@ -158,7 +167,7 @@ export const useTravelForm = ({
                     handleUpdateModalClose();
                 }
             } catch (err) {
-                console.error(err);
+                console.error('Error updating travel:', err);
             }
         },
         [userId, projectId, formUpdate.reset]
@@ -173,15 +182,17 @@ export const useTravelForm = ({
         if (!travelId) return;
 
         try {
-            console.log(`[useTravelForm] delete fetch start.`);
+            console.log('[useTravelForm][onDelete] delete fetch start.');
+
             const res = await fetch(
                 `${CONSTANTS.TRAVEL_DATAS_URL}/${travelId}`,
                 {
                     method: 'DELETE',
                 }
             );
+
             console.log(
-                `[useTravelForm] delete fetch end. res.ok? : ${res.ok}`
+                `[useTravelForm][onDelete] delete fetch end. res.ok? : ${res.ok}`
             );
 
             if (res.ok) {
@@ -192,30 +203,48 @@ export const useTravelForm = ({
                 handleDeleteModalClose();
             }
         } catch (err) {
-            console.error(err);
+            console.error('Error deleting travels:', err);
         }
     };
 
+    /**
+     * 更新モーダルを開く
+     * @param travel
+     */
     const handleUpdateModalOpen = (travel: Travel) => {
         setCurrentUpdateTravel(travel);
         setIsUpdateModalOpen(true);
     };
 
+    /**
+     * 更新モーダルを閉じる
+     */
     const handleUpdateModalClose = () => {
         setCurrentUpdateTravel(null);
         setIsUpdateModalOpen(false);
     };
 
+    /**
+     * 削除モーダルを開く
+     * @param travel
+     */
     const handleDeleteModalOpen = (travel: Travel) => {
         setCurrentDeleteTravel(travel);
         setIsDeleteModalOpen(true);
     };
 
+    /**
+     * 削除モーダルを閉じる
+     */
     const handleDeleteModalClose = () => {
         setCurrentDeleteTravel(null);
         setIsDeleteModalOpen(false);
     };
 
+    /**
+     * 旅行情報をフォームにマッピング
+     * @param travel
+     */
     const mapTravelToFormValues = (travel: Travel) => {
         let formattedDate = '';
         if (travel.date) {
