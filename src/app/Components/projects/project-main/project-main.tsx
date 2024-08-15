@@ -7,9 +7,11 @@ import { Project } from '@prisma/client';
 import CONSTANTS from '@/app/utils/common-constants';
 import { useProjectForm } from '@/app/hooks/projects/useProjectForm';
 
+import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
 import ProjectCreateForm from '@/app/Components/projects/project-main/project-create/project-create-form';
 import ProjectList from '@/app/Components/projects/project-main/project-list/project-list';
+import ProjectModal from '@/app/Components/projects/common/atoms/project-modal';
 
 interface ProjectMainProps {
     userId: string | undefined;
@@ -29,18 +31,33 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
 
-    const { projectList, form, onCreateSubmit } = useProjectForm({
+    const {
+        projectList,
+        selectedDelProjects,
+        isDelModalOpen,
+        setIsDelModalOpen,
+        form,
+        onCreateSubmit,
+        handleCheckboxChange,
+        handleDelete,
+        confirmDelete,
+    } = useProjectForm({
         userId,
         projectSCList,
     });
 
     return (
-        <div className="flex h-screen overflow-hidden">
-            <div className="w-1/5 h-full">
-                <SideBar projectSCList={projectList} />
+        <div className="flex w-full min-h-screen bg-green-200">
+            <div className="w-1/5 h-screen">
+                <SideBar projectSCList={[]} />
             </div>
-            <div className="w-4/5 h-full">
-                <div className="flex flex-col h-full p-6 space-y-6">
+
+            <div className="w-4/5 h-screen flex flex-col">
+                <div className="p-2 border border-pink-200">
+                    <ProjectTitle title={'プロジェクト'} />
+                </div>
+
+                <div className="flex flex-col h-full p-6 space-y-6 overflow-y-auto">
                     <div className="bg-white rounded-lg shadow p-4">
                         <ProjectCreateForm
                             form={form}
@@ -49,15 +66,27 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
                     </div>
 
                     <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
-                        <div className="h-full">
+                        <div className="h-full overflow-y-auto">
                             <ProjectList
                                 projectList={projectList}
-                                isLoading={false}
+                                selectedDelProjects={selectedDelProjects}
+                                handleDelete={handleDelete}
+                                handleCheckboxChange={handleCheckboxChange}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+
+            <ProjectModal
+                modalIsOpen={isDelModalOpen}
+                closeModal={() => setIsDelModalOpen(false)}
+                handleExecute={confirmDelete}
+                contentLabel="削除確認"
+                confirmText="選択されたプロジェクトを削除してもよろしいですか？"
+                cancelText="キャンセル"
+                okText="削除"
+            />
         </div>
     );
 };
