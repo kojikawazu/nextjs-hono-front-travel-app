@@ -2,7 +2,7 @@ import React from 'react';
 import ServerSideBar from '@/app/Components/layout/sidebar/server-side-bar';
 
 /**
- * プロジェクトレイアウト
+ * プロジェクトレイアウト(その他)
  * @param children
  * @returns JSX
  */

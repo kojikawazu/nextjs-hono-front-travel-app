@@ -4,8 +4,8 @@ import ProjectServerMain from '@/app/Components/projects/project-main/project-se
  * プロジェクトページ
  * @returns JSX
  */
-const ProjectPage = () => {
+const ProjectMainPage = () => {
     return <ProjectServerMain />;
 };
 
-export default ProjectPage;
+export default ProjectMainPage;
