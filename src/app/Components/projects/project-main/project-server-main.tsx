@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
-import { Project } from '@prisma/client';
-
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
+
 import CONSTANTS from '@/app/utils/common-constants';
+import { Project } from '@prisma/client';
 
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import ProjectMain from '@/app/Components/projects/project-main/project-main';
