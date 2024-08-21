@@ -20,7 +20,6 @@ const ProjectServerStatistics = async () => {
         `${CONSTANTS.SC_TRAVEL_DATAS_URL}/${user?.id}/grouped/month`
     );
     const statisticsDataSCList: TravelStatisticsType[] = await resGetTravelGroups.json();
-    console.log(statisticsDataSCList);
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
