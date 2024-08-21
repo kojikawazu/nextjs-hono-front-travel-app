@@ -30,6 +30,10 @@ const SideBar = ({ projectSCList }: SideBarProps) => {
                         </Link>
                     ))}
 
+                    <Link href="/projects/statistics">
+                        <SideBarItem label="Project Statistics" />
+                    </Link>
+
                     <SideBarItem label="Menu Item 2" />
                     <SideBarItem label="Menu Item 3" />
                 </ul>
