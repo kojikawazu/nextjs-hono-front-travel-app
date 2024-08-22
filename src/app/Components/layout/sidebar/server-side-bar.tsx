@@ -24,7 +24,10 @@ const ServerSideBar = async () => {
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
-            <SideBar projectSCList={projectSCList} />
+            <SideBar
+                projectSCList={projectSCList}
+                projectStatisticsSCList={[]}
+            />
         </Suspense>
     );
 };

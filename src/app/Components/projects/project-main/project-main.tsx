@@ -60,7 +60,7 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
     return (
         <div className="flex w-full min-h-screen bg-green-200">
             <div className="w-1/5 h-screen">
-                <SideBar projectSCList={[]} />
+                <SideBar projectSCList={[]} projectStatisticsSCList={[]} />
             </div>
 
             <div className="w-4/5 h-screen flex flex-col">
