@@ -1,8 +1,11 @@
 import React, { Suspense } from 'react';
-import { supabaseServer } from '@/app/lib/supabase/supabase-server';
 
-import type { TravelStatisticsType } from '@/type/data.types';
-import CONSTANTS from '@/app/utils/common-constants';
+import {
+    getAuthUser,
+    getProjectList,
+    getTravelGroupsByUserId,
+} from '@/app/utils/server/supabase-functions';
+
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import ProjectStatistics from '@/app/Components/projects/project-statistics/project-statistics';
 
@@ -11,21 +14,22 @@ import ProjectStatistics from '@/app/Components/projects/project-statistics/proj
  * @returns JSX
  */
 const ProjectServerStatistics = async () => {
-    const supabase = supabaseServer();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    const resGetTravelGroups= await fetch(
-        `${CONSTANTS.SC_TRAVEL_DATAS_URL}/${user?.id}/grouped/month`
+    const user = await getAuthUser();
+    const projectSCList = await getProjectList(user?.id as string);
+    const statisticsDataSCList = await getTravelGroupsByUserId(
+        'month',
+        user?.id as string
     );
-    const statisticsDataSCList: TravelStatisticsType[] = await resGetTravelGroups.json();
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
-            <ProjectStatistics userId={user?.id} statisticsDataSCList={statisticsDataSCList} />
+            <ProjectStatistics
+                userId={user?.id}
+                projectSCList={projectSCList}
+                statisticsDataSCList={statisticsDataSCList}
+            />
         </Suspense>
     );
-}
+};
 
 export default ProjectServerStatistics;

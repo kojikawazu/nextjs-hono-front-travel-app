@@ -6,9 +6,7 @@ import ProjectServerStatistics from '@/app/Components/projects/project-statistic
  * @returns JSX
  */
 const ProjectStatisticsPage = () => {
-    return (
-        <ProjectServerStatistics />
-    );
-}
+    return <ProjectServerStatistics />;
+};
 
 export default ProjectStatisticsPage;

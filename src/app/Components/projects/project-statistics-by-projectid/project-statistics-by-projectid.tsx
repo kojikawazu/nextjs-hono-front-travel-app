@@ -13,29 +13,33 @@ import SideBar from '@/app/Components/layout/sidebar/side-bar';
 import TravelSumStatistics from '@/app/Components/projects/project-statistics/statistics/travel-sum-statistics';
 import TravelAmountStatistics from '@/app/Components/projects/project-statistics/statistics/travel-amount-statistics';
 
-interface ProjectStatisticsProps {
+interface ProjectStatisticsByProjectIdProps {
     userId: string | undefined;
+    projectId: string;
     projectSCList: Project[];
     statisticsDataSCList: TravelStatisticsType[];
 }
 
 /**
- * プロジェクト統計
- * @param userId ユーザーID
- * @param projectSCList プロジェクトリスト
- * @param statisticsDataSCList 統計データリスト
+ * プロジェクト統計(プロジェクトID指定)
+ * @param userId
+ * @param projectId
+ * @param projectSCList
+ * @param statisticsDataSCList
  * @returns JSX
  */
-const ProjectStatistics = ({
+const ProjectStatisticsByProjectId = ({
     userId,
+    projectId,
     projectSCList,
     statisticsDataSCList,
-}: ProjectStatisticsProps) => {
+}: ProjectStatisticsByProjectIdProps) => {
     const router = useRouter();
     if (userId === undefined) {
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
-    const { viewMode, loading, handleViewModeChange, filteredData } =
+
+    const { viewMode, loading, handleViewModeChangeByProjectId, filteredData } =
         useTravelSatistics({
             userId: userId,
             statisticsDataList: statisticsDataSCList,
@@ -57,19 +61,25 @@ const ProjectStatistics = ({
 
                 <div className="p-2">
                     <button
-                        onClick={() => handleViewModeChange('week')}
+                        onClick={() =>
+                            handleViewModeChangeByProjectId('week', projectId)
+                        }
                         className={`mr-2 ${viewMode === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
                     >
                         週単位
                     </button>
                     <button
-                        onClick={() => handleViewModeChange('month')}
+                        onClick={() =>
+                            handleViewModeChangeByProjectId('month', projectId)
+                        }
                         className={`mr-2 ${viewMode === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
                     >
                         月単位
                     </button>
                     <button
-                        onClick={() => handleViewModeChange('year')}
+                        onClick={() =>
+                            handleViewModeChangeByProjectId('year', projectId)
+                        }
                         className={`${viewMode === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
                     >
                         年単位
@@ -97,4 +107,4 @@ const ProjectStatistics = ({
     );
 };
 
-export default ProjectStatistics;
+export default ProjectStatisticsByProjectId;

@@ -23,12 +23,12 @@ ChartJS.register(
 );
 
 interface TravelSumStatisticsProps {
-    statisticsDataSCList: TravelStatisticsType[]; 
-};
+    statisticsDataSCList: TravelStatisticsType[];
+}
 
 /**
  * 旅行数統計
- * @param statisticsDataSCList 統計データリスト 
+ * @param statisticsDataSCList 統計データリスト
  * @returns JSX
  */
 const TravelSumStatistics = ({
@@ -74,9 +74,7 @@ const TravelSumStatistics = ({
             },
         },
     };
-    return (
-        <Bar data={travelData} options={options} />
-    );
-}
+    return <Bar data={travelData} options={options} />;
+};
 
 export default TravelSumStatistics;

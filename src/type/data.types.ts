@@ -1,4 +1,3 @@
-
 export type TravelStatisticsType = {
     year: number;
     period_key: number;

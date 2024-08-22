@@ -22,8 +22,8 @@ ChartJS.register(
 );
 
 interface PTravelSumStatisticsProps {
-    statisticsDataSCList: TravelStatisticsType[]; 
-};
+    statisticsDataSCList: TravelStatisticsType[];
+}
 
 /**
  * 旅行合計金額統計
@@ -74,9 +74,7 @@ const TravelAmountStatistics = ({
         },
     };
 
-    return (
-        <Bar data={travelData} options={options} />
-    );
-}
+    return <Bar data={travelData} options={options} />;
+};
 
 export default TravelAmountStatistics;
