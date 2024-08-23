@@ -41,6 +41,7 @@ export const useTravelSatistics = ({
                 setStatisticsDataList(data);
             } catch (error) {
                 console.error('データ取得に失敗しました:', error);
+                setStatisticsDataList(initialStatisticsDataList);
             } finally {
                 setLoading(false);
             }
@@ -67,6 +68,7 @@ export const useTravelSatistics = ({
                 setStatisticsDataList(data);
             } catch (error) {
                 console.error('データ取得に失敗しました:', error);
+                setStatisticsDataList(initialStatisticsDataList);
             } finally {
                 setLoading(false);
             }

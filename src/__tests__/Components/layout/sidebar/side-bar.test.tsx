@@ -33,30 +33,88 @@ describe('SideBar', () => {
         },
     ];
 
+    const mockProjectStatistics: Project[] = [
+        {
+            id: '3',
+            name: 'Project Statistics 1',
+            description: 'Statistics Description 1',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'user1',
+        },
+        {
+            id: '4',
+            name: 'Project Statistics 2',
+            description: 'Statistics Description 2',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'user2',
+        },
+    ];
+
     test('renders SideBar with correct items', () => {
-        render(<SideBar projectSCList={mockProjects} />);
+        render(
+            <SideBar
+                projectSCList={mockProjects}
+                projectStatisticsSCList={mockProjectStatistics}
+            />
+        );
 
         expect(screen.getByText('Projects')).toBeTruthy();
+        expect(screen.getByText('Project Statistics')).toBeTruthy();
         expect(screen.getByText('Menu Item 2')).toBeTruthy();
         expect(screen.getByText('Menu Item 3')).toBeTruthy();
         expect(screen.getByText('Project 1')).toBeTruthy();
         expect(screen.getByText('Project 2')).toBeTruthy();
+        expect(screen.getByText('Project Statistics 1')).toBeTruthy();
+        expect(screen.getByText('Project Statistics 2')).toBeTruthy();
     });
 
     test('renders links with correct href attributes', () => {
-        render(<SideBar projectSCList={mockProjects} />);
+        render(
+            <SideBar
+                projectSCList={mockProjects}
+                projectStatisticsSCList={mockProjectStatistics}
+            />
+        );
 
         const projectLink = screen.getByText('Projects').closest('a');
         const project1Link = screen.getByText('Project 1').closest('a');
         const project2Link = screen.getByText('Project 2').closest('a');
+        const projectStatisticsLink = screen
+            .getByText('Project Statistics')
+            .closest('a');
+        const projectStatistics1Link = screen
+            .getByText('Project Statistics 1')
+            .closest('a');
+        const projectStatistics2Link = screen
+            .getByText('Project Statistics 2')
+            .closest('a');
 
         expect(projectLink).toHaveAttribute('href', '/projects');
         expect(project1Link).toHaveAttribute('href', '/projects/1');
         expect(project2Link).toHaveAttribute('href', '/projects/2');
+        expect(projectStatisticsLink).toHaveAttribute(
+            'href',
+            '/projects/statistics'
+        );
+        expect(projectStatistics1Link).toHaveAttribute(
+            'href',
+            '/projects/statistics/3'
+        );
+        expect(projectStatistics2Link).toHaveAttribute(
+            'href',
+            '/projects/statistics/4'
+        );
     });
 
     test('has the correct styles applied', () => {
-        const { container } = render(<SideBar projectSCList={mockProjects} />);
+        const { container } = render(
+            <SideBar
+                projectSCList={mockProjects}
+                projectStatisticsSCList={mockProjectStatistics}
+            />
+        );
 
         const firstChild = container.firstChild as HTMLElement;
         expect(firstChild).toBeTruthy();

@@ -10,6 +10,7 @@ import { useTravelSatistics } from '@/app/hooks/travels/useTravelSatistics';
 
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
+import UnitChangeBtn from '@/app/Components/projects/project-statistics/common/unit-change-btn';
 import TravelSumStatistics from '@/app/Components/projects/project-statistics/statistics/travel-sum-statistics';
 import TravelAmountStatistics from '@/app/Components/projects/project-statistics/statistics/travel-amount-statistics';
 
@@ -35,11 +36,16 @@ const ProjectStatistics = ({
     if (userId === undefined) {
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
-    const { viewMode, loading, handleViewModeChange, filteredData } =
-        useTravelSatistics({
-            userId: userId,
-            statisticsDataList: statisticsDataSCList,
-        });
+    const {
+        viewMode,
+        loading,
+        handleViewModeChange,
+        handleViewModeChangeByProjectId,
+        filteredData,
+    } = useTravelSatistics({
+        userId: userId,
+        statisticsDataList: statisticsDataSCList,
+    });
 
     return (
         <div className="flex w-full min-h-screen bg-green-200">
@@ -56,24 +62,13 @@ const ProjectStatistics = ({
                 </div>
 
                 <div className="p-2">
-                    <button
-                        onClick={() => handleViewModeChange('week')}
-                        className={`mr-2 ${viewMode === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        週単位
-                    </button>
-                    <button
-                        onClick={() => handleViewModeChange('month')}
-                        className={`mr-2 ${viewMode === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        月単位
-                    </button>
-                    <button
-                        onClick={() => handleViewModeChange('year')}
-                        className={`${viewMode === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        年単位
-                    </button>
+                    <UnitChangeBtn
+                        viewMode={viewMode}
+                        handleViewModeChange={handleViewModeChange}
+                        handleViewModeChangeByProjectId={
+                            handleViewModeChangeByProjectId
+                        }
+                    />
                 </div>
 
                 {loading ? (

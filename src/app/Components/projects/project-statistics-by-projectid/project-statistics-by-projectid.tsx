@@ -10,6 +10,7 @@ import { useTravelSatistics } from '@/app/hooks/travels/useTravelSatistics';
 
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
+import UnitChangeBtn from '@/app/Components/projects/project-statistics/common/unit-change-btn';
 import TravelSumStatistics from '@/app/Components/projects/project-statistics/statistics/travel-sum-statistics';
 import TravelAmountStatistics from '@/app/Components/projects/project-statistics/statistics/travel-amount-statistics';
 
@@ -39,11 +40,16 @@ const ProjectStatisticsByProjectId = ({
         router.push(CONSTANTS.AUTH_SIGNIN);
     }
 
-    const { viewMode, loading, handleViewModeChangeByProjectId, filteredData } =
-        useTravelSatistics({
-            userId: userId,
-            statisticsDataList: statisticsDataSCList,
-        });
+    const {
+        viewMode,
+        loading,
+        handleViewModeChange,
+        handleViewModeChangeByProjectId,
+        filteredData,
+    } = useTravelSatistics({
+        userId: userId,
+        statisticsDataList: statisticsDataSCList,
+    });
 
     return (
         <div className="flex w-full min-h-screen bg-green-200">
@@ -60,30 +66,14 @@ const ProjectStatisticsByProjectId = ({
                 </div>
 
                 <div className="p-2">
-                    <button
-                        onClick={() =>
-                            handleViewModeChangeByProjectId('week', projectId)
+                    <UnitChangeBtn
+                        viewMode={viewMode}
+                        handleViewModeChange={handleViewModeChange}
+                        handleViewModeChangeByProjectId={
+                            handleViewModeChangeByProjectId
                         }
-                        className={`mr-2 ${viewMode === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        週単位
-                    </button>
-                    <button
-                        onClick={() =>
-                            handleViewModeChangeByProjectId('month', projectId)
-                        }
-                        className={`mr-2 ${viewMode === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        月単位
-                    </button>
-                    <button
-                        onClick={() =>
-                            handleViewModeChangeByProjectId('year', projectId)
-                        }
-                        className={`${viewMode === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-                    >
-                        年単位
-                    </button>
+                        projectId={projectId}
+                    />
                 </div>
 
                 {loading ? (
