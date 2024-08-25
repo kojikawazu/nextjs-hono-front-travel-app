@@ -14,20 +14,20 @@ import ProjectLoading from '../common/atoms/project-loading';
 
 interface ProjectCalendarProps {
     userId: string | undefined;
-    travelCalendarDataList: TravelCalendarType[];
+    initialTravelCalendarList: TravelCalendarType[];
     defaultDate: Date;
 }
 
 /**
  * プロジェクトカレンダー
  * @param userId
- * @param travelCalendarDataList
+ * @param initialTravelCalendarList
  * @param defaultDate
  * @returns JSX
  */
 const ProjectCalendar = ({
     userId,
-    travelCalendarDataList,
+    initialTravelCalendarList,
     defaultDate,
 }: ProjectCalendarProps) => {
     const router = useRouter();
@@ -37,12 +37,17 @@ const ProjectCalendar = ({
 
     const {
         currentDate,
+        travelCalendarDataList,
         prevMonth,
         nextMonth,
         handleDateClick,
-    } = useTravelCalendar({ defaultDate });
+    } = useTravelCalendar({
+        userId,
+        defaultDate,
+        initialTravelCalendarList,
+    });
 
-    if (!userId) return <ProjectLoading label={"Loading..."} />;
+    if (!userId) return <ProjectLoading label={'Loading...'} />;
 
     return (
         <div className="flex h-screen overflow-hidden bg-gray-100">
