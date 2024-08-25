@@ -4,3 +4,8 @@ export type TravelStatisticsType = {
     travel_count: number;
     total_amount: number;
 };
+
+export type TravelCalendarType = {
+    date: Date;
+    name: string;
+};

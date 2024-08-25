@@ -17,9 +17,12 @@ const CONSTANTS = {
     GET_PROJECT_DATAS_BY_PROJECT_ID_URL: `${CC_BACKEND_URL}/projects`,
 
     /** ${BACKEND_URL}/travels */
+    /** ${BACKEND_URL}/travels/calendar/:userId/:month */
     /** ${BACKEND_URL}/travels/:userId/groups/year */
     TRAVEL_DATAS_URL: `${CC_BACKEND_URL}/travels`,
     SC_TRAVEL_DATAS_URL: `${SC_BACKEND_URL}/travels`,
+    TRAVEL_CALENDAR_DATAS_URL: `${CC_BACKEND_URL}/travels/calendar`,
+    SC_TRAVEL_CALENDAR_DATAS_URL: `${SC_BACKEND_URL}/travels/calendar`,
 
     /** /auth/signin */
     AUTH_SIGNIN: '/auth/signin',
