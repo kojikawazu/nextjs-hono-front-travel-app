@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
     format,
     startOfMonth,
@@ -6,36 +6,47 @@ import {
     eachDayOfInterval,
     isSameMonth,
     isSameDay,
-    parseISO,
+    isWithinInterval,
+    differenceInDays,
+    endOfWeek,
+    startOfDay,
+    endOfDay,
 } from 'date-fns';
 
-import type { TravelCalendarType } from '@/type/data.types';
+import type { ProjectCalendarType } from '@/type/data.types';
 
 interface CommonCalendarProps {
     currentDate: Date;
-    travelCalendarDataList: TravelCalendarType[];
+    projectCalendarDataList: ProjectCalendarType[];
     onDateClick?: (date: Date) => void;
+}
+
+interface MergedEvent extends ProjectCalendarType {
+    durationInDays: number;
 }
 
 /**
  * カレンダー共通コンポーネント
  * @param currentDate
- * @param travelCalendarDataList
+ * @param projectCalendarDataList
  * @param onDateClick
  * @returns JSX
  */
 const CommonCalendar = ({
     currentDate,
-    travelCalendarDataList,
+    projectCalendarDataList,
     onDateClick,
 }: CommonCalendarProps) => {
-    const renderCalendarDays = useMemo(() => {
-        const monthStart = startOfMonth(currentDate);
-        const monthEnd = endOfMonth(currentDate);
-        const dateArray = eachDayOfInterval({
-            start: monthStart,
-            end: monthEnd,
-        });
+    // マウント状態(projectCalendarDataListが更新されたときに再レンダリングを行うため)
+    const [mounted, setMounted] = useState(false);
+
+    // マウント時にmountedをtrueにする
+    // projectCalendarDataListが更新されたときに再レンダリングを行うため
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const renderDayNames = useMemo(() => {
         const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
 
         return (
@@ -43,63 +54,151 @@ const CommonCalendar = ({
                 {dayNames.map((day, index) => (
                     <div
                         key={`header-${index}`}
-                        className="text-center font-semibold text-gray-600 p-2 border-b"
+                        className="text-center font-semibold text-gray-600 py-1"
                     >
                         {day}
                     </div>
                 ))}
-                {dateArray.map((date, index) => {
-                    const travelEvents = travelCalendarDataList.filter(
-                        (travel) => {
-                            const travelDate =
-                                travel.date instanceof Date
-                                    ? travel.date
-                                    : parseISO(travel.date);
-                            return isSameDay(date, travelDate);
-                        }
+            </>
+        );
+    }, []);
+
+    const renderCalendarDays = useMemo(() => {
+        const monthStart = startOfMonth(currentDate);
+        const monthEnd = endOfMonth(currentDate);
+        const dateArray = eachDayOfInterval({
+            start: monthStart,
+            end: monthEnd,
+        });
+
+        const mergedEvents: MergedEvent[] = projectCalendarDataList.reduce(
+            (acc, event) => {
+                const existingEvent = acc.find(
+                    (e) =>
+                        e.name === event.name &&
+                        isWithinInterval(
+                            startOfDay(new Date(event.startDate!)),
+                            {
+                                start: startOfDay(new Date(e.startDate!)),
+                                end: endOfDay(new Date(e.endDate!)),
+                            }
+                        )
+                );
+
+                if (existingEvent) {
+                    existingEvent.endDate = new Date(
+                        Math.max(
+                            new Date(existingEvent.endDate!).getTime(),
+                            new Date(event.endDate!).getTime()
+                        )
                     );
-                    const isWeekend =
-                        date.getDay() === 0 || date.getDay() === 6;
+                    existingEvent.durationInDays =
+                        differenceInDays(
+                            new Date(existingEvent.endDate!),
+                            new Date(existingEvent.startDate!)
+                        ) + 1;
+                } else {
+                    acc.push({
+                        ...event,
+                        durationInDays:
+                            differenceInDays(
+                                new Date(event.endDate!),
+                                new Date(event.startDate!)
+                            ) + 1,
+                    });
+                }
+                return acc;
+            },
+            [] as MergedEvent[]
+        );
+
+        return (
+            <>
+                {dateArray.map((date, index) => {
                     const isToday = isSameDay(date, new Date());
                     const isCurrentMonth = isSameMonth(date, currentDate);
+                    const weekEnd = endOfWeek(date);
+                    const eventsForDay = mergedEvents.filter((event) =>
+                        isWithinInterval(startOfDay(date), {
+                            start: startOfDay(new Date(event.startDate!)),
+                            end: endOfDay(new Date(event.endDate!)),
+                        })
+                    );
 
                     return (
                         <div
                             key={index}
                             onClick={() => onDateClick?.(date)}
-                            className={`p-2 border relative min-h-[100px] transition-colors duration-200 cursor-pointer
-                                ${isWeekend ? 'bg-gray-50' : 'bg-white'}
-                                ${isToday ? 'border-blue-500 border-2' : 'border-gray-200'}
+                            className={`border-r border-b relative h-full transition-colors duration-200 cursor-pointer
+                                ${isToday ? 'border-blue-500 border-2' : ''}
                                 ${!isCurrentMonth ? 'opacity-50' : ''}
                                 hover:bg-gray-100`}
                         >
                             <span
-                                className={`
-                                ${isWeekend ? 'text-red-500' : 'text-gray-700'} 
+                                className={`absolute top-1 left-1 text-sm
                                 ${isToday ? 'font-bold' : ''}
                             `}
                             >
                                 {format(date, 'd')}
                             </span>
-                            {travelEvents.map((event, eventIndex) => (
-                                <div
-                                    key={eventIndex}
-                                    className="mt-1 bg-blue-100 text-blue-800 text-xs p-1 rounded shadow-sm"
-                                >
-                                    {event.name}
-                                </div>
-                            ))}
+                            {mounted &&
+                                eventsForDay.map((event, eventIndex) => {
+                                    const isStartDay = true;
+                                    const remainingDays =
+                                        differenceInDays(
+                                            new Date(event.endDate!),
+                                            date
+                                        ) + 1;
+                                    const daysUntilWeekEnd =
+                                        differenceInDays(weekEnd, date) + 1;
+                                    const widthPercentage = `100%`;
+
+                                    return (
+                                        <div
+                                            key={eventIndex}
+                                            className={`absolute left-0 h-4 bg-blue-200 overflow-hidden whitespace-nowrap text-xs`}
+                                            style={{
+                                                width: widthPercentage,
+                                                top: `${eventIndex * 16 + 20}px`,
+                                                borderTopLeftRadius: isStartDay
+                                                    ? '2px'
+                                                    : '0',
+                                                borderBottomLeftRadius:
+                                                    isStartDay ? '2px' : '0',
+                                                borderTopRightRadius:
+                                                    remainingDays <=
+                                                    daysUntilWeekEnd
+                                                        ? '2px'
+                                                        : '0',
+                                                borderBottomRightRadius:
+                                                    remainingDays <=
+                                                    daysUntilWeekEnd
+                                                        ? '2px'
+                                                        : '0',
+                                            }}
+                                        >
+                                            <span className="px-1">
+                                                {isStartDay ? event.name : ''}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
                         </div>
                     );
                 })}
             </>
         );
-    }, [currentDate, travelCalendarDataList, onDateClick]);
+    }, [currentDate, projectCalendarDataList, onDateClick, mounted]);
 
     return (
-        <div className="grid grid-cols-7 gap-1 h-full bg-white rounded-lg shadow-lg p-2">
-            {renderCalendarDays}
-        </div>
+        <>
+            <div className="grid grid-cols-7 h-10 bg-white rounded-t-lg shadow-lg mb-4">
+                {renderDayNames}
+            </div>
+            <div className="grid grid-cols-7 h-full bg-white rounded-lg shadow-lg border-l border-t">
+                {renderCalendarDays}
+            </div>
+        </>
     );
 };
 

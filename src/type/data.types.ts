@@ -9,3 +9,10 @@ export type TravelCalendarType = {
     date: Date;
     name: string;
 };
+
+export type ProjectCalendarType = {
+    id: string;
+    name: string;
+    startDate?: Date | null;
+    endDate?: Date | null;
+};

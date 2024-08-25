@@ -3,31 +3,31 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import CONSTANTS from '@/app/utils/common-constants';
-import type { TravelCalendarType } from '@/type/data.types';
+import type { ProjectCalendarType } from '@/type/data.types';
+import { useTravelCalendar } from '@/app/hooks/travels/useTravelCalendar';
 
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
-import CommonCalendar from './calendar/common-calendar';
-import CalendarChangeBtn from './calendar/calendar-change-btn';
-import { useTravelCalendar } from '@/app/hooks/travels/useTravelCalendar';
-import ProjectLoading from '../common/atoms/project-loading';
+import CommonCalendar from '@/app/Components/projects/project-calendar/calendar/common-calendar';
+import CalendarChangeBtn from '@/app/Components/projects/project-calendar/calendar/calendar-change-btn';
+import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 
 interface ProjectCalendarProps {
     userId: string | undefined;
-    initialTravelCalendarList: TravelCalendarType[];
+    initialProjectCalendarList: ProjectCalendarType[];
     defaultDate: Date;
 }
 
 /**
  * プロジェクトカレンダー
  * @param userId
- * @param initialTravelCalendarList
+ * @param initialProjectCalendarList
  * @param defaultDate
  * @returns JSX
  */
 const ProjectCalendar = ({
     userId,
-    initialTravelCalendarList,
+    initialProjectCalendarList,
     defaultDate,
 }: ProjectCalendarProps) => {
     const router = useRouter();
@@ -37,14 +37,14 @@ const ProjectCalendar = ({
 
     const {
         currentDate,
-        travelCalendarDataList,
+        projectCalendarDataList,
         prevMonth,
         nextMonth,
         handleDateClick,
     } = useTravelCalendar({
         userId,
         defaultDate,
-        initialTravelCalendarList,
+        initialProjectCalendarList,
     });
 
     if (!userId) return <ProjectLoading label={'Loading...'} />;
@@ -70,7 +70,7 @@ const ProjectCalendar = ({
                 <section className="flex-1 overflow-y-auto p-4">
                     <CommonCalendar
                         currentDate={currentDate}
-                        travelCalendarDataList={travelCalendarDataList}
+                        projectCalendarDataList={projectCalendarDataList}
                         onDateClick={handleDateClick}
                     />
                 </section>
