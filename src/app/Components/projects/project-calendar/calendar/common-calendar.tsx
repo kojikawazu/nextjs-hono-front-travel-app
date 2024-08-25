@@ -5,6 +5,8 @@ import {
     endOfMonth,
     eachDayOfInterval,
     isSameMonth,
+    isSameDay,
+    parseISO,
 } from 'date-fns';
 
 import type { TravelCalendarType } from '@/type/data.types';
@@ -47,20 +49,18 @@ const CommonCalendar = ({
                     </div>
                 ))}
                 {dateArray.map((date, index) => {
-                    const dateString = format(date, 'yyyy-MM-dd');
-                    const travelEvent = travelCalendarDataList.find(
-                        (travel) =>
-                            format(
+                    const travelEvents = travelCalendarDataList.filter(
+                        (travel) => {
+                            const travelDate =
                                 travel.date instanceof Date
                                     ? travel.date
-                                    : new Date(travel.date),
-                                'yyyy-MM-dd'
-                            ) === dateString
+                                    : parseISO(travel.date);
+                            return isSameDay(date, travelDate);
+                        }
                     );
                     const isWeekend =
                         date.getDay() === 0 || date.getDay() === 6;
-                    const isToday =
-                        dateString === format(new Date(), 'yyyy-MM-dd');
+                    const isToday = isSameDay(date, new Date());
                     const isCurrentMonth = isSameMonth(date, currentDate);
 
                     return (
@@ -81,11 +81,14 @@ const CommonCalendar = ({
                             >
                                 {format(date, 'd')}
                             </span>
-                            {travelEvent && (
-                                <div className="mt-1 bg-blue-100 text-blue-800 text-xs p-1 rounded shadow-sm">
-                                    {travelEvent.name}
+                            {travelEvents.map((event, eventIndex) => (
+                                <div
+                                    key={eventIndex}
+                                    className="mt-1 bg-blue-100 text-blue-800 text-xs p-1 rounded shadow-sm"
+                                >
+                                    {event.name}
                                 </div>
-                            )}
+                            ))}
                         </div>
                     );
                 })}

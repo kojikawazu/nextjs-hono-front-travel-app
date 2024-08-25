@@ -13,14 +13,15 @@ import ProjectCalendar from '@/app/Components/projects/project-calendar/project-
  * @returns JSX
  */
 const ProjectServerCalendar = async () => {
+    const defaultMonthStr = '2024年6月';
     const user = await getAuthUser();
 
     const resGetTravelCalendarList = await fetch(
-        `${CONSTANTS.SC_TRAVEL_CALENDAR_DATAS_URL}/${user?.id}/2024年4月`
+        `${CONSTANTS.SC_TRAVEL_CALENDAR_DATAS_URL}/${user?.id}/${defaultMonthStr}`
     );
     const travelCalendarSCList: Travel[] =
         await resGetTravelCalendarList.json();
-    const travelCalendarDataList: TravelCalendarType[] =
+    const initialTravelCalendarList: TravelCalendarType[] =
         travelCalendarSCList.map((travel) => ({
             date: new Date(travel.date?.toString() as string),
             name: travel.name,
@@ -30,8 +31,8 @@ const ProjectServerCalendar = async () => {
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <ProjectCalendar
                 userId={user?.id}
-                travelCalendarDataList={travelCalendarDataList}
-                defaultDate={new Date(2024, 3, 1)}
+                initialTravelCalendarList={initialTravelCalendarList}
+                defaultDate={new Date(2024, 5, 1)}
             />
         </Suspense>
     );
