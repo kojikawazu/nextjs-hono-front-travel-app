@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { render, act, waitFor } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { useTravelSatistics } from '@/app/hooks/travels/useTravelSatistics';
 import CONSTANTS from '@/app/utils/common-constants';
 import type { TravelStatisticsType } from '@/type/data.types';
