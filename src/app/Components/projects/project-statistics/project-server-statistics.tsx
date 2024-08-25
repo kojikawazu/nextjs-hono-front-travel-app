@@ -4,7 +4,7 @@ import {
     getAuthUser,
     getProjectList,
     getTravelGroupsByUserId,
-} from '@/app/utils/server/supabase-functions';
+} from '@/app/utils/supabase/supabase-server-functions';
 
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import ProjectStatistics from '@/app/Components/projects/project-statistics/project-statistics';

@@ -1,31 +1,35 @@
 import { useState } from 'react';
 
-import CONSTANTS from '@/app/utils/common-constants';
-import type { TravelCalendarType } from '@/type/data.types';
+import type { ProjectCalendarType } from '@/type/data.types';
+import { getProjectCalendarByUserId } from '@/app/utils/supabase/supabase-client-functions';
+import { changeProjectCalendarList } from '@/app/utils/change/change-functions';
 
 interface TravelCalendarProps {
     userId: string | undefined;
     defaultDate: Date;
-    initialTravelCalendarList: TravelCalendarType[];
+    initialProjectCalendarList: ProjectCalendarType[];
 }
 
 /**
  * 旅行カレンダーフック
  * @param userId
  * @param defaultDate
- * @param initialTravelCalendarList
+ * @param initialProjectCalendarList
  * @returns 旅行カレンダーフック
  */
 export const useTravelCalendar = ({
     userId,
     defaultDate,
-    initialTravelCalendarList,
+    initialProjectCalendarList,
 }: TravelCalendarProps) => {
     const [currentDate, setCurrentDate] = useState(defaultDate);
-    const [travelCalendarDataList, setTravelCalendarDataList] = useState(
-        initialTravelCalendarList
+    const [projectCalendarDataList, setProjectCalendarDataList] = useState(
+        initialProjectCalendarList
     );
 
+    /**
+     * 前月へ
+     */
     const prevMonth = async () => {
         const newDate = new Date(
             currentDate.getFullYear(),
@@ -36,6 +40,9 @@ export const useTravelCalendar = ({
         await fetchTravelCalendarData(newDate);
     };
 
+    /**
+     * 翌月へ
+     */
     const nextMonth = async () => {
         const newDate = new Date(
             currentDate.getFullYear(),
@@ -50,19 +57,13 @@ export const useTravelCalendar = ({
         if (!userId) return;
 
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // 月は0が1月なので+1
+        const month = date.getMonth() + 1; // 月は0が1月なので+1
 
-        const resGetTravelCalendarList = await fetch(
-            `${CONSTANTS.SC_TRAVEL_CALENDAR_DATAS_URL}/${userId}/${year}年${month}月`
-        );
-
-        if (resGetTravelCalendarList.ok) {
-            const travelData: TravelCalendarType[] =
-                await resGetTravelCalendarList.json();
-            setTravelCalendarDataList(travelData);
-        } else {
-            console.error('Failed to fetch travel calendar data');
-        }
+        const projectCalendarSCList: ProjectCalendarType[] =
+            await getProjectCalendarByUserId(userId as string, year, month);
+        const changedProjectCalendarList: ProjectCalendarType[] =
+            changeProjectCalendarList(projectCalendarSCList);
+        setProjectCalendarDataList(changedProjectCalendarList);
     };
 
     const handleDateClick = (date: Date) => {
@@ -71,8 +72,8 @@ export const useTravelCalendar = ({
 
     return {
         currentDate,
-        travelCalendarDataList,
-        setTravelCalendarDataList,
+        projectCalendarDataList,
+        setProjectCalendarDataList,
         prevMonth,
         nextMonth,
         handleDateClick,

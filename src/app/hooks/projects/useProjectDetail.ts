@@ -22,7 +22,7 @@ export const useProjectDetail = ({ projectId }: useProjectDetailProps) => {
             try {
                 console.log(`[useProjectDetail] fetch start.`);
                 const res = await fetch(
-                    `${CONSTANTS.GET_PROJECT_DATAS_BY_PROJECT_ID_URL}/${projectId}`
+                    `${CONSTANTS.SC_PROJECT_DATAS_URL}/${projectId}`
                 );
                 console.log(
                     `[useProjectDetail] fetch end. res.ok? : ${res.ok}`
