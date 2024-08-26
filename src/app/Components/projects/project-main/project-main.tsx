@@ -58,37 +58,43 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
     });
 
     return (
-        <div className="flex w-full min-h-screen bg-green-200">
-            <div className="w-1/5 h-screen">
+        <div className="flex h-screen overflow-hidden bg-gray-100">
+            <aside className="w-64 bg-white shadow-md overflow-y-auto">
                 <SideBar projectSCList={[]} projectStatisticsSCList={[]} />
-            </div>
+            </aside>
 
-            <div className="w-4/5 h-screen flex flex-col">
-                <div className="p-2 border border-pink-200">
-                    <ProjectTitle title={'プロジェクト'} />
-                </div>
-
-                <div className="flex flex-col h-full p-6 space-y-6 overflow-y-auto">
-                    <div className="bg-white rounded-lg shadow p-4">
-                        <ProjectCreateForm
-                            form={form}
-                            onCreateSubmit={onCreateSubmit}
-                        />
+            <main className="flex-1 flex flex-col overflow-hidden">
+                <header className="bg-white shadow-sm p-4">
+                    <div className="flex justify-between items-center">
+                        <ProjectTitle title="プロジェクト" />
                     </div>
+                </header>
 
-                    <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
-                        <div className="h-full overflow-y-auto">
-                            <ProjectList
-                                projectList={projectList}
-                                handleUpdateModalOpen={handleUpdateModalOpen}
-                                selectedDelProjects={selectedDelProjects}
-                                handleDelete={handleDelete}
-                                handleCheckboxChange={handleCheckboxChange}
+                <section className="flex-1 overflow-y-auto p-4">
+                    <div className="flex flex-col h-full p-6 space-y-6 overflow-y-auto">
+                        <div className="bg-white rounded-lg shadow p-4">
+                            <ProjectCreateForm
+                                form={form}
+                                onCreateSubmit={onCreateSubmit}
                             />
                         </div>
+
+                        <div className="flex-grow bg-white rounded-lg shadow overflow-hidden">
+                            <div className="h-full overflow-y-auto">
+                                <ProjectList
+                                    projectList={projectList}
+                                    handleUpdateModalOpen={
+                                        handleUpdateModalOpen
+                                    }
+                                    selectedDelProjects={selectedDelProjects}
+                                    handleDelete={handleDelete}
+                                    handleCheckboxChange={handleCheckboxChange}
+                                />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
 
             <ProjectModalChild
                 contentLabel={'テスト'}
