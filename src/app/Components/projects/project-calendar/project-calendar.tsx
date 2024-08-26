@@ -8,9 +8,9 @@ import { useTravelCalendar } from '@/app/hooks/travels/useTravelCalendar';
 
 import ProjectTitle from '@/app/Components/projects/common/atoms/project-title';
 import SideBar from '@/app/Components/layout/sidebar/side-bar';
-import CommonCalendar from '@/app/Components/projects/project-calendar/calendar/common-calendar';
-import CalendarChangeBtn from '@/app/Components/projects/project-calendar/calendar/calendar-change-btn';
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
+import CommonCalendar from '@/app/Components/projects/project-calendar/calendar/common-calendar';
+import CalendarChangeBtn from '@/app/Components/projects/project-calendar/atoms/calendar-change-btn';
 
 interface ProjectCalendarProps {
     userId: string | undefined;
