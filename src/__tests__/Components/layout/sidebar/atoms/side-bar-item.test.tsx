@@ -17,37 +17,54 @@ describe('SideBarItem', () => {
 
         render(<SideBarItem label={labelText} />);
 
-        const liElement = screen.getByText(labelText);
+        const divElement = screen.getByText(labelText).closest('div');
+        expect(divElement).not.toBeNull();
 
-        expect(liElement).not.toBeNull();
-        expect(liElement.tagName.toLowerCase()).toBe('li');
+        if (divElement) {
+            expect(divElement.tagName.toLowerCase()).toBe('div');
+        }
     });
 
     test('renders without label', () => {
         render(<SideBarItem label="" />);
-        const liElement = screen.getByRole('listitem');
-        expect(liElement).not.toBeNull();
-        expect(liElement.textContent).toBe('');
+        const divElement = screen.getByTestId('sidebar-item');
+        expect(divElement).not.toBeNull();
+        expect(divElement.textContent).toBe('');
     });
 
     test('renders long side bar label', () => {
         const longLabel = 'A'.repeat(100);
         render(<SideBarItem label={longLabel} />);
-        const liElement = screen.getByText(longLabel);
-        expect(liElement).not.toBeNull();
-        expect(liElement.tagName.toLowerCase()).toBe('li');
+        const divElement = screen.getByText(longLabel).closest('div');
+        expect(divElement).not.toBeNull();
+
+        if (divElement) {
+            expect(divElement.tagName.toLowerCase()).toBe('div');
+        }
     });
 
     test('applies correct CSS classes', () => {
         const labelText = 'My Label';
         render(<SideBarItem label={labelText} />);
-        const liElement = screen.getByText(labelText);
-        console.log(liElement.outerHTML);
+        const divElement = screen.getByText(labelText).closest('div');
+        expect(divElement).not.toBeNull();
 
-        const classes = ['p-2', 'border-b', 'border-blue-400'];
-        classes.forEach((cls) => {
-            expect(liElement.classList.contains(cls)).toBe(true);
-        });
+        if (divElement) {
+            const classes = [
+                'flex',
+                'items-center',
+                'space-x-2',
+                'p-2',
+                'hover:bg-blue-400',
+                'cursor-pointer',
+                'transition-all',
+                'duration-200',
+            ];
+
+            classes.forEach((cls) => {
+                expect(divElement).toHaveClass(cls);
+            });
+        }
     });
 
     test('applies additional className correctly', () => {
@@ -55,15 +72,26 @@ describe('SideBarItem', () => {
         const additionalClass = 'extra-class';
 
         render(<SideBarItem label={labelText} className={additionalClass} />);
-        const liElement = screen.getByText(labelText);
+        const divElement = screen.getByText(labelText).closest('div');
+        expect(divElement).not.toBeNull();
 
-        // 元のクラスが存在していることを確認
-        const baseClasses = ['p-2', 'border-b', 'border-blue-400'];
-        baseClasses.forEach((cls) => {
-            expect(liElement.classList.contains(cls)).toBe(true);
-        });
+        if (divElement) {
+            const baseClasses = [
+                'flex',
+                'items-center',
+                'space-x-2',
+                'p-2',
+                'hover:bg-blue-400',
+                'cursor-pointer',
+                'transition-all',
+                'duration-200',
+            ];
 
-        // 追加されたクラスが存在していることを確認
-        expect(liElement.classList.contains(additionalClass)).toBe(true);
+            baseClasses.forEach((cls) => {
+                expect(divElement).toHaveClass(cls);
+            });
+
+            expect(divElement).toHaveClass(additionalClass);
+        }
     });
 });

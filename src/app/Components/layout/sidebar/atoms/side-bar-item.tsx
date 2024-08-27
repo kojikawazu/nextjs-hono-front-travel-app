@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface SideBarItemProps {
     label: string;
+    icon?: ReactNode;
     className?: string;
 }
 
 /**
  * サイドバーアイテム
  * @param label
+ * @param icon
  * @param className
  * @returns JSX
  */
-const SideBarItem = ({ label, className = '' }: SideBarItemProps) => {
+const SideBarItem = ({ label, icon, className = '' }: SideBarItemProps) => {
     return (
-        <li className={`p-2 border-b border-blue-400 ${className}`}>{label}</li>
+        <div
+            data-testid="sidebar-item"
+            className={`flex items-center space-x-2 p-2 hover:bg-blue-400 cursor-pointer transition-all duration-200 ${className}`}
+        >
+            {icon && <span className="flex-shrink-0">{icon}</span>}
+            <span className="flex-grow">{label}</span>
+        </div>
     );
 };
 
