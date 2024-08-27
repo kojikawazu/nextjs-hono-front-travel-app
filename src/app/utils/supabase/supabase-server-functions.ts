@@ -5,7 +5,7 @@ import type {
     TravelStatisticsType,
     ProjectCalendarType,
 } from '@/type/data.types';
-import { Project } from '@prisma/client';
+import { Project, Travel } from '@prisma/client';
 
 /**
  * 認証ユーザーの取得
@@ -30,6 +30,36 @@ export async function getProjectList(userId: string) {
     );
     const projectSCList: Project[] = await resGetProjectList.json();
     return projectSCList;
+}
+
+/**
+ * プロジェクトの取得
+ * @param projectId
+ * @returns プロジェクト
+ */
+export async function getTravelListProjectId(projectId: string) {
+    const resGetProject = await fetch(
+        `${CONSTANTS.SC_PROJECT_DATAS_URL}/${projectId}`
+    );
+    const SCProject: Project = await resGetProject.json();
+    return SCProject;
+}
+
+/**
+ * プロジェクトリストの取得(ユーザーID指定,プロジェクトID指定)
+ * @param userId ユーザーID
+ * @param projectId プロジェクトID
+ * @returns プロジェクトリスト
+ */
+export async function getTravelListByUserIdAndProjectId(
+    userId: string,
+    projectId: string
+) {
+    const resGetTravelList = await fetch(
+        `${CONSTANTS.SC_TRAVEL_DATAS_URL}/${userId}/${projectId}`
+    );
+    const travelSCList: Travel[] = await resGetTravelList.json();
+    return travelSCList;
 }
 
 /**

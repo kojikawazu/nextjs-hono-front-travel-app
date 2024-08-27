@@ -1,7 +1,10 @@
 import { Suspense } from 'react';
-import { supabaseServer } from '@/app/lib/supabase/supabase-server';
-import CONSTANTS from '@/app/utils/common-constants';
-import { Project, Travel } from '@prisma/client';
+
+import {
+    getAuthUser,
+    getTravelListProjectId,
+    getTravelListByUserIdAndProjectId,
+} from '@/app/utils/supabase/supabase-server-functions';
 
 import ProjectDetail from '@/app/Components/projects/project-detail/project-detail';
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
@@ -15,20 +18,12 @@ interface ProjectServerDetailProps {
  * @returns JSX
  */
 const ProjectServerDetail = async ({ projectId }: ProjectServerDetailProps) => {
-    const supabase = supabaseServer();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    const resGetTravelList = await fetch(
-        `${CONSTANTS.SC_TRAVEL_DATAS_URL}/${user?.id}/${projectId}`
+    const user = await getAuthUser();
+    const travelSCList = await getTravelListByUserIdAndProjectId(
+        user?.id as string,
+        projectId
     );
-    const travelSCList: Travel[] = await resGetTravelList.json();
-
-    const resGetProject = await fetch(
-        `${CONSTANTS.SC_PROJECT_DATAS_URL}/${projectId}`
-    );
-    const SCProject: Project = await resGetProject.json();
+    const SCProject = await getTravelListProjectId(projectId);
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
