@@ -60,7 +60,10 @@ const ProjectMain = ({ userId, projectSCList }: ProjectMainProps) => {
     return (
         <div className="flex h-screen overflow-hidden bg-gray-100">
             <aside className="w-64 bg-white shadow-md overflow-y-auto">
-                <SideBar projectSCList={[]} projectStatisticsSCList={[]} />
+                <SideBar
+                    projectSCList={projectSCList}
+                    projectStatisticsSCList={projectSCList}
+                />
             </aside>
 
             <main className="flex-1 flex flex-col overflow-hidden">

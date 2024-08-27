@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 
 import {
     getAuthUser,
-    getProjectList,
     getTravelGroupsByUserIdAndProjectId,
 } from '@/app/utils/supabase/supabase-server-functions';
 
@@ -22,7 +21,6 @@ const ProjectServerStatisticsByProjectId = async ({
     projectId,
 }: ProjectServerStatisticsByProjectIdProps) => {
     const user = await getAuthUser();
-    const projectSCList = await getProjectList(user?.id as string);
     const statisticsDataSCList = await getTravelGroupsByUserIdAndProjectId(
         'month',
         user?.id as string,
@@ -34,7 +32,6 @@ const ProjectServerStatisticsByProjectId = async ({
             <ProjectStatisticsByProjectId
                 userId={user?.id}
                 projectId={projectId}
-                projectSCList={projectSCList}
                 statisticsDataSCList={statisticsDataSCList}
             />
         </Suspense>

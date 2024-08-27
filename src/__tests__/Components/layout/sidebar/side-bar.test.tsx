@@ -60,10 +60,10 @@ describe('SideBar', () => {
             />
         );
 
-        expect(screen.getByText('Projects')).toBeTruthy();
-        expect(screen.getByText('Project Statistics')).toBeTruthy();
-        expect(screen.getByText('Menu Item 2')).toBeTruthy();
-        expect(screen.getByText('Menu Item 3')).toBeTruthy();
+        expect(screen.getByText('全プロジェクト')).toBeTruthy();
+        expect(screen.getByText('プロジェクト')).toBeTruthy();
+        expect(screen.getByText('全プロジェクト統計')).toBeTruthy();
+        expect(screen.getByText('プロジェクト統計')).toBeTruthy();
         expect(screen.getByText('Project 1')).toBeTruthy();
         expect(screen.getByText('Project 2')).toBeTruthy();
         expect(screen.getByText('Project Statistics 1')).toBeTruthy();
@@ -78,11 +78,11 @@ describe('SideBar', () => {
             />
         );
 
-        const projectLink = screen.getByText('Projects').closest('a');
+        const projectLink = screen.getByText('全プロジェクト').closest('a');
         const project1Link = screen.getByText('Project 1').closest('a');
         const project2Link = screen.getByText('Project 2').closest('a');
         const projectStatisticsLink = screen
-            .getByText('Project Statistics')
+            .getByText('全プロジェクト統計')
             .closest('a');
         const projectStatistics1Link = screen
             .getByText('Project Statistics 1')

@@ -27,7 +27,7 @@ const ServerSideBar = async () => {
             <aside className="w-64 bg-white shadow-md overflow-y-auto">
                 <SideBar
                     projectSCList={projectSCList}
-                    projectStatisticsSCList={[]}
+                    projectStatisticsSCList={projectSCList}
                 />
             </aside>
         </Suspense>

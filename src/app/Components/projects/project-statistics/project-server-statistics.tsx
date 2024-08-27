@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 
 import {
     getAuthUser,
-    getProjectList,
     getTravelGroupsByUserId,
 } from '@/app/utils/supabase/supabase-server-functions';
 
@@ -15,7 +14,6 @@ import ProjectStatistics from '@/app/Components/projects/project-statistics/proj
  */
 const ProjectServerStatistics = async () => {
     const user = await getAuthUser();
-    const projectSCList = await getProjectList(user?.id as string);
     const statisticsDataSCList = await getTravelGroupsByUserId(
         'month',
         user?.id as string
@@ -25,7 +23,6 @@ const ProjectServerStatistics = async () => {
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <ProjectStatistics
                 userId={user?.id}
-                projectSCList={projectSCList}
                 statisticsDataSCList={statisticsDataSCList}
             />
         </Suspense>
