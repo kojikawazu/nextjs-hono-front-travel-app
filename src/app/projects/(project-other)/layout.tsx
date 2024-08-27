@@ -12,11 +12,14 @@ export default function ProjectsOtherLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex h-screen overflow-hidden">
-            <div className="w-1/5 h-full">
+        <div className="flex h-screen overflow-hidden bg-gray-100">
+            <aside className="w-64 bg-white shadow-md overflow-y-auto">
                 <ServerSideBar />
-            </div>
-            <div className="w-4/5 h-full">{children}</div>
+            </aside>
+
+            <main className="flex-1 flex flex-col overflow-hidden">
+                {children}
+            </main>
         </div>
     );
 }

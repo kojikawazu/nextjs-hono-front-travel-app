@@ -24,10 +24,12 @@ const ServerSideBar = async () => {
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
-            <SideBar
-                projectSCList={projectSCList}
-                projectStatisticsSCList={[]}
-            />
+            <aside className="w-64 bg-white shadow-md overflow-y-auto">
+                <SideBar
+                    projectSCList={projectSCList}
+                    projectStatisticsSCList={[]}
+                />
+            </aside>
         </Suspense>
     );
 };
