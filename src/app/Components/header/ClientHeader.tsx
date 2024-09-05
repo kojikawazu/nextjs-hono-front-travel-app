@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderTitle from '@/app/Components/header/atoms/header-title';
-import HeaderLink from '@/app/Components/header/atoms/header-link';
+import NoMobileMenu from './molecules/no-mobile-menu';
+import MobileMenu from '@/app/Components/header/molecules/mobile-menu';
 import AuthServerButton from '@/app/Components/auth/auth-server-button';
 
 /**
@@ -13,15 +14,11 @@ const ClientHeader = () => {
             <div className="container mx-auto px-4 py-3">
                 <div className="flex justify-between items-center">
                     <HeaderTitle />
-                    <HeaderLink />
+                    <NoMobileMenu />
 
-                    <div className="flex items-center space-x-4">
-                        <AuthServerButton
-                            className={
-                                'bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md transition-colors duration-200'
-                            }
-                        />
-                    </div>
+                    <MobileMenu>
+                        <AuthServerButton className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md transition-colors duration-200" />
+                    </MobileMenu>
                 </div>
             </div>
         </header>
