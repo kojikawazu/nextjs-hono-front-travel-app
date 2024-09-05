@@ -26,7 +26,7 @@ interface SideBarProps {
  */
 const SideBar = ({ projectSCList, projectStatisticsSCList }: SideBarProps) => {
     return (
-        <div className="bg-blue-300 h-screen w-64 text-white overflow-y-auto shadow-lg">
+        <div className="bg-blue-600 h-screen w-64 text-white overflow-y-auto shadow-lg">
             <div className="p-4">
                 <nav>
                     <Link href="/projects">
