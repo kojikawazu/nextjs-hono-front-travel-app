@@ -119,7 +119,7 @@ describe('SideBar', () => {
         const firstChild = container.firstChild as HTMLElement;
         expect(firstChild).toBeTruthy();
         if (firstChild) {
-            expect(firstChild.className.includes('bg-blue-300')).toBe(true);
+            expect(firstChild.className.includes('bg-blue-600')).toBe(true);
             expect(firstChild.className.includes('h-screen')).toBe(true);
         }
     });

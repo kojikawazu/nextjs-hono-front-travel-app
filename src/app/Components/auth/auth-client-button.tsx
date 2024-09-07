@@ -11,22 +11,25 @@ import { Button } from '@/components/ui/button';
  */
 interface AuthClientButtonProps {
     session: { user: User } | null;
+    className?: string;
 }
 
 /**
  * クライアント用認証ボタン
  * @param session
+ * @param className
  * @returns JSX
  */
-const AuthClientButton = ({ session }: AuthClientButtonProps) => {
+const AuthClientButton = ({ session, className }: AuthClientButtonProps) => {
     const router = useRouter();
+    const signInHref = '/auth/signin';
 
     if (!session) {
-        router.push('/auth/signin');
+        router.push(signInHref);
     }
 
     const handleSignIn = async () => {
-        router.push('/auth/signin');
+        router.push(signInHref);
     };
 
     const handleSignOut = async () => {
@@ -37,9 +40,13 @@ const AuthClientButton = ({ session }: AuthClientButtonProps) => {
     return (
         <>
             {session ? (
-                <Button onClick={handleSignOut}>サインアウト</Button>
+                <Button onClick={handleSignOut} className={className}>
+                    サインアウト
+                </Button>
             ) : (
-                <Button onClick={handleSignIn}>サインイン</Button>
+                <Button onClick={handleSignIn} className={className}>
+                    サインイン
+                </Button>
             )}
         </>
     );
