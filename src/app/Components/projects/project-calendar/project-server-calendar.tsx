@@ -25,8 +25,9 @@ const ProjectServerCalendar = async () => {
     if (user != null) {
         const projectCalendarSCList: ProjectCalendarType[] =
             await getProjectCalendarByUserId(user?.id as string, year, month);
-        initialProjectCalendarList =
-            changeProjectCalendarList(projectCalendarSCList);
+        initialProjectCalendarList = changeProjectCalendarList(
+            projectCalendarSCList
+        );
     }
 
     return (

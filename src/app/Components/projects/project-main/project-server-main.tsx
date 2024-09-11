@@ -19,7 +19,7 @@ const ProjectServerMain = async () => {
     if (user != null) {
         projectSCList = await getProjectList(user?.id as string);
     }
-    
+
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <ProjectMain userId={user?.id} projectSCList={projectSCList} />

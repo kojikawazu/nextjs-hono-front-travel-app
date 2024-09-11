@@ -23,7 +23,7 @@ const ProjectServerStatistics = async () => {
             user?.id as string
         );
     }
-    
+
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
             <ProjectStatistics
