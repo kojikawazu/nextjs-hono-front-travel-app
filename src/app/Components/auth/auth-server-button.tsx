@@ -1,3 +1,4 @@
+import React from 'react';
 import { supabaseServer } from '@/app/lib/supabase/supabase-server';
 import AuthClientButton from './auth-client-button';
 
