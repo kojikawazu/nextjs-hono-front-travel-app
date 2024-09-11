@@ -28,13 +28,13 @@ const CollapsibleSection = ({
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center space-x-2">
-                    {icon}
+                    <span data-testid="section-icon">{icon}</span>
                     <span className="font-semibold">{label}</span>
                 </div>
                 {isOpen ? (
-                    <ChevronDown size={20} />
+                    <ChevronDown size={20} data-testid="chevron-down" />
                 ) : (
-                    <ChevronRight size={20} />
+                    <ChevronRight size={20} data-testid="chevron-right" />
                 )}
             </div>
             <div
