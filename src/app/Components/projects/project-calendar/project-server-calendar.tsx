@@ -20,10 +20,14 @@ const ProjectServerCalendar = async () => {
     const month = 6;
 
     const user = await getAuthUser();
-    const projectCalendarSCList: ProjectCalendarType[] =
-        await getProjectCalendarByUserId(user?.id as string, year, month);
-    const initialProjectCalendarList: ProjectCalendarType[] =
-        changeProjectCalendarList(projectCalendarSCList);
+
+    let initialProjectCalendarList: ProjectCalendarType[] = [];
+    if (user != null) {
+        const projectCalendarSCList: ProjectCalendarType[] =
+            await getProjectCalendarByUserId(user?.id as string, year, month);
+        initialProjectCalendarList =
+            changeProjectCalendarList(projectCalendarSCList);
+    }
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
