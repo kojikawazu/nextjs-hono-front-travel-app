@@ -4,6 +4,7 @@ import {
     getAuthUser,
     getTravelGroupsByUserIdAndProjectId,
 } from '@/app/utils/supabase/supabase-server-functions';
+import { TravelStatisticsType } from '@/type/data.types';
 
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import ProjectStatisticsByProjectId from '@/app/Components/projects/project-statistics-by-projectid/project-statistics-by-projectid';
@@ -21,11 +22,15 @@ const ProjectServerStatisticsByProjectId = async ({
     projectId,
 }: ProjectServerStatisticsByProjectIdProps) => {
     const user = await getAuthUser();
-    const statisticsDataSCList = await getTravelGroupsByUserIdAndProjectId(
-        'month',
-        user?.id as string,
-        projectId
-    );
+
+    let statisticsDataSCList: TravelStatisticsType[] = [];
+    if (user != null) {
+        statisticsDataSCList = await getTravelGroupsByUserIdAndProjectId(
+            'month',
+            user?.id as string,
+            projectId
+        );
+    }
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>

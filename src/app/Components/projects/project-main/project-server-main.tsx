@@ -3,6 +3,7 @@ import {
     getAuthUser,
     getProjectList,
 } from '@/app/utils/supabase/supabase-server-functions';
+import { Project } from '@prisma/client';
 
 import ProjectLoading from '@/app/Components/projects/common/atoms/project-loading';
 import ProjectMain from '@/app/Components/projects/project-main/project-main';
@@ -13,7 +14,11 @@ import ProjectMain from '@/app/Components/projects/project-main/project-main';
  */
 const ProjectServerMain = async () => {
     const user = await getAuthUser();
-    const projectSCList = await getProjectList(user?.id as string);
+
+    let projectSCList: Project[] = [];
+    if (user != null) {
+        projectSCList = await getProjectList(user?.id as string);
+    }
 
     return (
         <Suspense fallback={<ProjectLoading label={'Loading...'} />}>
