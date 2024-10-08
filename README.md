@@ -1,6 +1,6 @@
 # 遠征Webアプリケーション概要(Frontend側)
 
-## 概要
+## Summary
 
 Todo
 
@@ -30,3 +30,27 @@ Todo
 -   eslint
 -   prettier
 -   GitHub Actions
+
+## Architecture
+
+![アーキテクチャー](./drawio/travel-front.drawio.png)
+
+## Backend
+
+リポジトリは以下となります。
+
+-   [バックエンド](https://github.com/kojikawazu/nextjs-hono-back-travel-app)
+
+## URL
+
+-   [Vercel](https://vercel.com/)
+
+-   [Next.js](https://nextjs.org/)
+
+-   [Hono](https://hono.dev/)
+
+-   [TypeScript](https://www.typescriptlang.org/)
+
+-   [Supabase](https://supabase.com/)
+
+-   [playwright](https://playwright.dev/)
